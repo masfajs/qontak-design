@@ -49,7 +49,14 @@
       "Read(//usr/local/bin/**)",
       "Read(//usr/local/**)",
       "Bash(curl -s -H 'Authorization: Bearer __CMDSUB_OUTPUT__' 'https://api.github.com/repos/masfajs/qontak-design/pulls?head=masfajs:claude/mystifying-spence-55c131&state=open')",
-      "Bash(git remote *)"
+      "Bash(git remote *)",
+      "Bash(git ls-remote *)",
+      "Bash(git rm *)",
+      "Bash(curl -s \"https://www.figma.com/api/mcp/asset/b33373a0-02f6-489f-8023-4172936dd51d\" -o /tmp/figma-loyalty-submenu.png)",
+      "Bash(lsof -ti:3000)",
+      "Bash(node_modules/.bin/nuxi typecheck *)",
+      "Bash(npx nuxi *)",
+      "Bash(node -e ' *)"
     ]
   }
 }

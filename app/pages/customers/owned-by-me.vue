@@ -2,7 +2,7 @@
   <main data-pixel-component="PixelContent" v-bind="pixelContentAttrs">
 
     <MpFlex justify="space-between" align-items="center" px="6" py="1.063rem">
-      <MpText size="h1" weight="semiBold">Inbox</MpText>
+      <MpText size="h1" weight="semiBold">Owned by Me</MpText>
       <MpButton left-icon="add">Action</MpButton>
     </MpFlex>
 

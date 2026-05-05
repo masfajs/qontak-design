@@ -116,28 +116,23 @@
 
   </aside>
 
-  <!-- Campaigns Submenu Panel -->
-  <aside v-if="activeSubmenu === '/campaigns'" :style="submenuPanelStyle">
+  <!-- Generic Submenu Panel — renders for any active submenu -->
+  <aside v-if="activeSubmenuData" :style="submenuPanelStyle">
+    <div :style="{ flex: '1', overflowY: 'auto', backgroundColor: 'var(--mp-colors-background-surface)', paddingTop: '16px' }">
 
-    <!-- Scrollable submenu area -->
-    <div :style="{ flex: '1', overflowY: 'auto', backgroundColor: 'var(--mp-colors-background-surface)' }">
       <!-- Section header -->
-      <MpFlex paddingX="4" paddingTop="4" paddingBottom="2">
+      <MpFlex alignItems="center" paddingX="4" :style="{ height: '36px' }">
         <MpText
           size="label-small"
           weight="semiBold"
-          :style="{
-            color: 'var(--mp-colors-text-link)',
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-          }"
-        >Campaigns</MpText>
+          :style="{ color: 'var(--mp-colors-text-link)', letterSpacing: '0.08em', textTransform: 'uppercase' }"
+        >{{ activeSubmenuData.title }}</MpText>
       </MpFlex>
 
       <!-- Submenu items -->
       <MpFlex direction="column" gap="1" paddingX="2">
         <MpFlex
-          v-for="subItem in campaignsSubmenu"
+          v-for="subItem in activeSubmenuData.items"
           :key="subItem.label"
           alignItems="center"
           gap="3"
@@ -152,7 +147,7 @@
             transition: 'background-color 150ms ease',
             backgroundColor: isActive(subItem.route) ? 'var(--mp-colors-background-brand-selected)' : 'transparent',
           }"
-          @click="router.push(subItem.route)"
+          @click="subItem.newTab ? openNewTab(subItem.route) : router.push(subItem.route)"
         >
           <MpText
             size="label"
@@ -162,11 +157,11 @@
               color: isActive(subItem.route) ? 'var(--mp-colors-text-selected)' : 'var(--mp-colors-text-default)',
             }"
           >{{ subItem.label }}</MpText>
-          <MpIcon v-if="subItem.hasArrow" name="chevrons-right" size="sm" color="icon.default" />
+          <MpIcon v-if="subItem.newTab" name="newtab" size="sm" color="icon.default" />
         </MpFlex>
       </MpFlex>
-    </div>
 
+    </div>
   </aside>
 
   <!-- Page content -->
@@ -187,86 +182,139 @@
   const route  = useRoute()
   const router = useRouter()
 
-  // ─── Submenu state ──────────────────────────────
+  // ─── Nav groups ─────────────────────────────────────────────────────────────
+  // Untuk menambah submenu pada menu manapun, tambahkan properti `submenu`:
+  //   submenu: {
+  //     title: 'Nama Section',
+  //     items: [
+  //       { label: 'Item 1', route: '/route/item-1' },
+  //       { label: 'Item 2', route: '/route/item-2' },
+  //     ]
+  //   }
+  // ─────────────────────────────────────────────────────────────────────────────
+  const navGroups = [
+    [
+      { icon: 'home',      label: 'Home',             route: '/',               badge: false },
+      { icon: 'inbox',     label: 'Inbox',            route: '/inbox',          badge: false,
+        submenu: {
+          title: 'Inbox',
+          items: [
+            { label: 'All chats',   route: '/inbox/all-chats'   },
+            { label: 'My chats',    route: '/inbox/my-chats'    },
+            { label: 'Unassigned',  route: '/inbox/unassigned'  },
+            { label: 'Assigned',    route: '/inbox/assigned'    },
+            { label: 'Resolved',    route: '/inbox/resolved'    },
+          ]
+        }
+      },
+      { icon: 'phone',     label: 'Calls',            route: '/calls',          badge: true  },
+      { icon: 'broadcast', label: 'Campaigns',        route: '/campaigns',      badge: false,
+        submenu: {
+          title: 'Campaigns',
+          items: [
+            { label: 'WhatsApp',        route: '/campaigns/whatsapp'       },
+            { label: 'Email',           route: '/campaigns/email-basic'    },
+            { label: 'Recipient lists', route: '/campaigns/recipient-list' },
+            { label: 'Templates',       route: '/campaigns/templates'      },
+          ]
+        }
+      },
+      { icon: 'chatbot',   label: 'Bot & automation', route: '/bot-automation', badge: false,
+        submenu: {
+          title: 'Bot & Automation',
+          items: [
+            { label: 'Conversations',       route: '/bot-automation/conversations'       },
+            { label: 'AI agents',           route: '/bot-automation/ai-agents'           },
+            { label: 'Custom instruction',  route: '/bot-automation/custom-instruction'  },
+            { label: 'Settings',            route: '/bot-automation/settings', newTab: true },
+          ]
+        }
+      },
+    ],
+    [
+      { icon: 'team',              label: 'Customers', route: '/customers', badge: false,
+        submenu: {
+          title: 'Customers',
+          items: [
+            { label: 'All customers',  route: '/customers/all-customers'  },
+            { label: 'All companies',  route: '/customers/all-companies'  },
+            { label: 'Assigned to me', route: '/customers/assigned-to-me' },
+            { label: 'Owned by me',    route: '/customers/owned-by-me'    },
+          ]
+        }
+      },
+      { icon: 'talent-management', label: 'Loyalty',   route: '/loyalty',   badge: false },
+      { icon: 'reports',           label: 'Reports',   route: '/reports',   badge: false },
+    ],
+    [
+      { icon: 'sales',        label: 'Deals',   route: '/deals',   badge: false },
+      { icon: 'voucher',      label: 'Tickets', route: '/tickets', badge: false },
+      { icon: 'competencies', label: 'Tasks',   route: '/tasks',   badge: false },
+    ],
+    [
+      { icon: 'shop',     label: 'Commerce',  route: '/commerce',  badge: true  },
+      { icon: 'book',     label: 'Resources', route: '/resources', badge: false },
+      { icon: 'doc',      label: 'Documents', route: '/documents', badge: false },
+      { icon: 'products', label: 'Products',  route: '/products',  badge: false },
+      { icon: 'expenses', label: 'Expenses',  route: '/expenses',  badge: false },
+    ],
+    [
+      { icon: 'officeless', label: 'Custom solutions', route: '/custom-solutions', badge: false },
+    ],
+    [
+      { icon: 'transfer', label: 'Subscription', route: '/subscription', badge: false },
+      { icon: 'settings', label: 'Settings',     route: '/settings',     badge: false },
+    ],
+  ]
+
+  // ─── Submenu state ───────────────────────────────────────────────────────────
   const activeSubmenu = ref<string | null>(null)
 
-  // Auto-open submenu when navigating to a submenu route
+  // Flatten all items to find submenu definitions
+  const allNavItems = navGroups.flat()
+
+  // Auto-open/close submenu based on current route
   watch(
     () => route.path,
     (newPath) => {
-      if (newPath.startsWith('/campaigns')) {
-        activeSubmenu.value = '/campaigns'
-      } else if (activeSubmenu.value === '/campaigns') {
-        activeSubmenu.value = null
-      }
+      const match = allNavItems.find(
+        item => item.submenu && newPath.startsWith(item.route)
+      )
+      activeSubmenu.value = match ? match.route : null
     },
     { immediate: true }
   )
 
   const isSubmenuOpen = computed(() => activeSubmenu.value !== null)
 
-  function handleNavClick(item: { route: string; hasSubmenu?: boolean }) {
-    if (item.hasSubmenu) {
+  // Active submenu data (title + items) for the panel
+  const activeSubmenuData = computed(() => {
+    if (!activeSubmenu.value) return null
+    return allNavItems.find(item => item.route === activeSubmenu.value)?.submenu ?? null
+  })
+
+  function openNewTab(path: string) {
+    window.open(path, '_blank')
+  }
+
+  function handleNavClick(item: { route: string; submenu?: { title: string; items: { label: string; route: string; newTab?: boolean }[] } }) {
+    if (item.submenu) {
       activeSubmenu.value = item.route
-      router.push(campaignsSubmenu[0].route)
+      router.push(item.submenu.items[0].route)
     } else {
       activeSubmenu.value = null
       router.push(item.route)
     }
   }
 
-  // ─── Campaigns submenu items ─────────────────────
-  const campaignsSubmenu = [
-    { label: 'WhatsApp',        route: '/campaigns/whatsapp',       hasArrow: false },
-    { label: 'Email basic',     route: '/campaigns/email-basic',    hasArrow: false },
-    { label: 'Email advanced',  route: '/campaigns/email-advanced', hasArrow: false },
-    { label: 'Templates',       route: '/campaigns/templates',      hasArrow: true  },
-    { label: 'Recipient list',  route: '/campaigns/recipient-list', hasArrow: true  },
-  ]
-
-  // ─── Nav groups ──────────────────────────────────
-  const navGroups = [
-    [
-      { icon: 'home',      label: 'Home',             route: '/',               badge: false, hasSubmenu: false },
-      { icon: 'inbox',     label: 'Inbox',            route: '/inbox',          badge: false, hasSubmenu: false },
-      { icon: 'phone',     label: 'Calls',            route: '/calls',          badge: true,  hasSubmenu: false },
-      { icon: 'broadcast', label: 'Campaigns',        route: '/campaigns',      badge: false, hasSubmenu: true  },
-      { icon: 'chatbot',   label: 'Bot & automation', route: '/bot-automation', badge: false, hasSubmenu: false },
-    ],
-    [
-      { icon: 'team',              label: 'Customers', route: '/customers', badge: false, hasSubmenu: false },
-      { icon: 'talent-management', label: 'Loyalty',   route: '/loyalty',   badge: false, hasSubmenu: false },
-      { icon: 'reports',           label: 'Reports',   route: '/reports',   badge: false, hasSubmenu: false },
-    ],
-    [
-      { icon: 'sales',        label: 'Deals',   route: '/deals',   badge: false, hasSubmenu: false },
-      { icon: 'voucher',      label: 'Tickets', route: '/tickets', badge: false, hasSubmenu: false },
-      { icon: 'competencies', label: 'Tasks',   route: '/tasks',   badge: false, hasSubmenu: false },
-    ],
-    [
-      { icon: 'shop',     label: 'Commerce',  route: '/commerce',  badge: true,  hasSubmenu: false },
-      { icon: 'book',     label: 'Resources', route: '/resources', badge: false, hasSubmenu: false },
-      { icon: 'doc',      label: 'Documents', route: '/documents', badge: false, hasSubmenu: false },
-      { icon: 'products', label: 'Products',  route: '/products',  badge: false, hasSubmenu: false },
-      { icon: 'expenses', label: 'Expenses',  route: '/expenses',  badge: false, hasSubmenu: false },
-    ],
-    [
-      { icon: 'officeless', label: 'Custom solutions', route: '/custom-solutions', badge: false, hasSubmenu: false },
-    ],
-    [
-      { icon: 'transfer', label: 'Subscription', route: '/subscription', badge: false, hasSubmenu: false },
-      { icon: 'settings', label: 'Settings',     route: '/settings',     badge: false, hasSubmenu: false },
-    ],
-  ]
-
   const isActive = (itemRoute: string) =>
     itemRoute === '/' ? route.path === '/' : route.path.startsWith(itemRoute)
 
-  // ─── Layout constants ─────────────────────────────
+  // ─── Layout constants ────────────────────────────────────────────────────────
   const headerBg     = 'var(--mp-colors-background-neutral)'
   const headerBorder = '1px solid var(--mp-colors-border-default)'
 
-  // ─── Styles ───────────────────────────────────────
+  // ─── Styles ──────────────────────────────────────────────────────────────────
   const navbarStyle = computed(() => ({
     position: 'fixed' as const,
     top: '0',
@@ -288,13 +336,17 @@
     top: TOPBAR_HEIGHT,
     left: '0',
     width: isSubmenuOpen.value ? ICON_SIDEBAR_WIDTH : SIDEBAR_WIDTH,
+    minWidth: isSubmenuOpen.value ? ICON_SIDEBAR_WIDTH : SIDEBAR_WIDTH,
+    maxWidth: isSubmenuOpen.value ? ICON_SIDEBAR_WIDTH : SIDEBAR_WIDTH,
     height: `calc(100svh - ${TOPBAR_HEIGHT})`,
     display: 'flex',
     flexDirection: 'column' as const,
     zIndex: '10',
     overflow: 'hidden',
-    backgroundColor: 'var(--mp-colors-background-surface)',
-    borderRight: headerBorder,
+    backgroundColor: isSubmenuOpen.value
+      ? 'var(--mp-colors-background-nav-parent)'
+      : 'var(--mp-colors-background-surface)',
+    borderRight: isSubmenuOpen.value ? headerBorder : 'none',
   }))
 
   const submenuPanelStyle = computed(() => ({
@@ -310,22 +362,28 @@
     backgroundColor: 'var(--mp-colors-background-surface)',
   }))
 
-  const navAreaStyle = {
+  const navAreaStyle = computed(() => ({
     flex: '1',
     overflowY: 'auto' as const,
-    backgroundColor: 'var(--mp-colors-background-surface)',
-  }
+    backgroundColor: isSubmenuOpen.value
+      ? 'var(--mp-colors-background-nav-parent)'
+      : 'var(--mp-colors-background-surface)',
+  }))
 
-  const dividerStyle = {
+  const dividerStyle = computed(() => ({
     height: '1px',
-    backgroundColor: '#E2E8F0',
+    backgroundColor: isSubmenuOpen.value
+      ? 'var(--mp-colors-border-default)'
+      : '#E2E8F0',
     marginLeft: '8px',
     marginRight: '8px',
-  }
+  }))
 
   const companyZoneStyle = computed(() => ({
     flexShrink: '0',
-    backgroundColor: 'var(--mp-colors-background-surface)',
+    backgroundColor: isSubmenuOpen.value
+      ? 'var(--mp-colors-background-nav-parent)'
+      : 'var(--mp-colors-background-surface)',
     borderTop: headerBorder,
   }))
 
@@ -338,8 +396,8 @@
     backgroundColor: 'var(--mp-colors-background-surface)',
   }))
 
-  const profileHoverClass  = css({ _hover: { bg: 'background.neutral.hovered' } })
-  const navItemHoverClass  = css({ _hover: { bg: 'background.neutral.hovered' } })
+  const profileHoverClass = css({ _hover: { bg: 'background.neutral.hovered' } })
+  const navItemHoverClass = css({ _hover: { bg: 'background.neutral.hovered' } })
 </script>
 
 <style scoped>

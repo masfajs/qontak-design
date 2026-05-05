@@ -167,21 +167,6 @@
       </MpFlex>
     </div>
 
-    <!-- Collapse button -->
-    <MpFlex paddingX="2" paddingY="3" :style="submenuFooterStyle">
-      <MpFlex
-        alignItems="center"
-        gap="2"
-        paddingX="2"
-        paddingY="2"
-        :style="{ flex: '1', borderRadius: '6px', cursor: 'pointer', height: '36px' }"
-        :class="navItemHoverClass"
-        @click="activeSubmenu = null"
-      >
-        <MpIcon name="chevrons-left" size="sm" color="icon.default" />
-      </MpFlex>
-    </MpFlex>
-
   </aside>
 
   <!-- Page content -->
@@ -340,12 +325,6 @@
   }
 
   const companyZoneStyle = computed(() => ({
-    flexShrink: '0',
-    backgroundColor: 'var(--mp-colors-background-surface)',
-    borderTop: headerBorder,
-  }))
-
-  const submenuFooterStyle = computed(() => ({
     flexShrink: '0',
     backgroundColor: 'var(--mp-colors-background-surface)',
     borderTop: headerBorder,

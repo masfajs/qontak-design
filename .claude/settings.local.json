@@ -36,7 +36,19 @@
       "Bash(python3 -c \"import sys,json; prs=json.load\\(sys.stdin\\); print\\(prs[0]['html_url'] if prs else 'none'\\)\")",
       "WebFetch(domain:docs.mekari.design)",
       "Bash(python3 -c \"import sys,json; p=json.load\\(sys.stdin\\); print\\(p.get\\('exports', p.get\\('main', ''\\)\\)\\)\")",
-      "WebFetch(domain:pattern.mekari.design)"
+      "WebFetch(domain:pattern.mekari.design)",
+      "Bash(gh pr *)",
+      "Bash(curl -s -H 'Authorization: Bearer __TRACKED_VAR__' -H 'Accept: application/vnd.github+json' 'https://api.github.com/repos/masfajs/qontak-design/pulls?head=masfajs:claude/mystifying-spence-55c131&state=open')",
+      "Bash(security find-generic-password *)",
+      "Bash(/usr/bin/curl -s -H 'Authorization: Bearer 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' -H 'Accept: application/vnd.github+json' 'https://api.github.com/repos/masfajs/qontak-design/pulls?head=masfajs:claude/mystifying-spence-55c131&state=open')",
+      "Bash(/usr/bin/curl -s -X POST -H 'Authorization: Bearer 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' -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2022-11-28' https://api.github.com/repos/masfajs/qontak-design/pulls -d '{ *)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "mcp__Claude_in_Chrome__navigate",
+      "mcp__Claude_in_Chrome__javascript_tool",
+      "Bash(brew list *)",
+      "Read(//usr/local/bin/**)",
+      "Read(//usr/local/**)",
+      "Bash(curl -s -H 'Authorization: Bearer __CMDSUB_OUTPUT__' 'https://api.github.com/repos/masfajs/qontak-design/pulls?head=masfajs:claude/mystifying-spence-55c131&state=open')"
     ]
   }
 }

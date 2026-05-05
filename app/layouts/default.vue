@@ -5,14 +5,35 @@
       <img src="https://cdn.mekari.design/logo/qontak/default.svg" alt="Qontak" height="32" />
     </div>
     <div data-slot="rightContent" :style="{ display: 'flex', gap: '8px', alignItems: 'center' }">
-      <MpButton variant="ghost" left-icon="bell" aria-label="notification button" />
-      <MpButton variant="ghost" size="sm">
-        <MpAvatar name="Rizal Chandra" size="sm" variant-color="sky" />
-        <div :style="{ textAlign: 'left' }">
-          <MpText size="label" weight="semiBold">Rizal Chandra</MpText>
-          <MpText size="label-small" color="text.secondary">PT Qontak</MpText>
-        </div>
-      </MpButton>
+      <AppStatusButton />
+      <div :style="{ position: 'relative', display: 'inline-flex' }">
+        <MpButton variant="ghost" left-icon="notification" aria-label="notification button" />
+        <MpBadge
+          for="indicator"
+          type="critical"
+          size="sm"
+          :style="{ position: 'absolute', top: '6px', right: '6px', pointerEvents: 'none' }"
+        />
+      </div>
+      <MpButton variant="ghost" left-icon="shortcuts" aria-label="shortcuts button" />
+      <MpFlex
+        alignItems="center"
+        gap="3"
+        paddingX="2"
+        paddingY="1"
+        :style="{ borderRadius: '6px', cursor: 'pointer' }"
+        :class="profileHoverClass"
+      >
+        <MpAvatar
+          src="https://randomuser.me/api/portraits/women/11.jpg"
+          name="Rizal Candra"
+          size="lg"
+        />
+        <MpFlex direction="column" :style="{ whiteSpace: 'nowrap' }">
+          <MpText size="label" weight="semiBold">Rizal Candra</MpText>
+          <MpText size="label-small" color="text.secondary">PT Central Perk Cafe</MpText>
+        </MpFlex>
+      </MpFlex>
     </div>
   </nav>
 
@@ -185,6 +206,8 @@
     backgroundColor: 'var(--mp-colors-background-surface)',
   }))
 
+
+  const profileHoverClass = css({ _hover: { bg: 'background.neutral.hovered' } })
 
   const logoMarkClass = css({
     w: '6',

@@ -1,16 +1,16 @@
 <template>
   <main data-pixel-component="PixelContent" v-bind="pixelContentAttrs">
+
     <MpFlex justify="space-between" align-items="center" px="6" py="1.063rem">
       <MpText size="h1" weight="semiBold">Deals</MpText>
       <MpButton left-icon="add">Action</MpButton>
     </MpFlex>
+
     <div :class="contentAreaClass">
       <!-- place content here -->
-      <MpFlex direction="column" alignItems="center" justify="center" gap="3" :style="{ minHeight: '320px' }">
-        <MpText size="label" weight="semiBold">Deals</MpText>
-        <MpText size="label-small" color="text.secondary">Place content here...</MpText>
-      </MpFlex>
+      <MpText color="text.secondary">Place content here...</MpText>
     </div>
+
   </main>
 </template>
 

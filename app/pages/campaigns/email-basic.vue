@@ -2,32 +2,20 @@
   <main data-pixel-component="PixelContent" v-bind="pixelContentAttrs">
 
     <MpFlex justify="space-between" align-items="center" px="6" py="1.063rem">
-      <MpText size="h1" weight="semiBold">Email Basic Campaigns</MpText>
-      <MpButton left-icon="add">Create Campaign</MpButton>
+      <MpText size="h1" weight="semiBold">Email Basic</MpText>
+      <MpButton left-icon="add">Action</MpButton>
     </MpFlex>
 
     <div :class="contentAreaClass">
-      <MpFlex
-        direction="column"
-        alignItems="center"
-        justify="center"
-        gap="3"
-        :style="{ minHeight: '320px' }"
-      >
-        <MpIcon name="doc" size="sm" color="icon.default" />
-        <MpFlex direction="column" alignItems="center" gap="1">
-          <MpText size="label" weight="semiBold">No email campaigns yet</MpText>
-          <MpText size="label-small" color="text.secondary">Create your first basic email campaign</MpText>
-        </MpFlex>
-        <MpButton variant="secondary" left-icon="add">Create Campaign</MpButton>
-      </MpFlex>
+      <!-- place content here -->
+      <MpText color="text.secondary">Place content here...</MpText>
     </div>
 
   </main>
 </template>
 
 <script setup lang="ts">
-  import { MpButton, MpFlex, MpText, MpIcon, css } from '@mekari/pixel3'
+  import { MpButton, MpFlex, MpText, css } from '@mekari/pixel3'
   import { usePixelLayout } from '~/composables/usePixelLayout'
 
   definePageMeta({ layout: 'default' })

@@ -308,7 +308,6 @@
     zIndex: '10',
     overflow: 'hidden',
     backgroundColor: 'var(--mp-colors-background-surface)',
-    borderRight: headerBorder,
   }))
 
   const navAreaStyle = {

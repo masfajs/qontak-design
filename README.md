@@ -53,6 +53,7 @@ app/
 | File | Boleh diubah? | Keterangan |
 |------|:---:|---|
 | `app/pages/index.vue` | ✅ | Canvas utama — isi konten di sini |
+| `app/pages/template.vue` | ✅ | Boilerplate — duplikat untuk halaman baru |
 | `app/pages/[nama].vue` | ✅ | Buat halaman baru bebas |
 | `app/components/*.vue` | ✅ | Tambah shared component |
 | `app/layouts/default.vue` | ❌ | Layout shell — jangan diubah |
@@ -63,10 +64,10 @@ app/
 
 ## Membuat Halaman Baru
 
-### 1. Duplikat `index.vue` sebagai starting point
+### 1. Duplikat `template.vue` sebagai starting point
 
 ```bash
-cp app/pages/index.vue app/pages/contacts.vue
+cp app/pages/template.vue app/pages/contacts.vue
 ```
 
 ### 2. Edit konten halaman

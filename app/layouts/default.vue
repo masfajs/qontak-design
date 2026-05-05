@@ -179,7 +179,6 @@
         @click="activeSubmenu = null"
       >
         <MpIcon name="chevrons-left" size="sm" color="icon.default" />
-        <MpText size="label" color="text.secondary">Collapse</MpText>
       </MpFlex>
     </MpFlex>
 

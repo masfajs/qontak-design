@@ -162,7 +162,7 @@
               color: isActive(subItem.route) ? 'var(--mp-colors-text-selected)' : 'var(--mp-colors-text-default)',
             }"
           >{{ subItem.label }}</MpText>
-          <MpIcon v-if="subItem.hasArrow" name="chevron-right" size="sm" color="icon.default" />
+          <MpIcon v-if="subItem.hasArrow" name="chevrons-right" size="sm" color="icon.default" />
         </MpFlex>
       </MpFlex>
     </div>

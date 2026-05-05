@@ -31,7 +31,7 @@
         />
         <MpFlex direction="column" :style="{ whiteSpace: 'nowrap' }">
           <MpText size="label" weight="semiBold">Rizal Candra</MpText>
-          <MpText size="label-small" color="text.secondary">Central Perk Cafe</MpText>
+          <MpText size="label-small" color="text.secondary">PT Central Perk Cafe</MpText>
         </MpFlex>
       </MpFlex>
     </div>

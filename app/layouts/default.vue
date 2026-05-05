@@ -131,34 +131,128 @@
 
       <!-- Submenu items -->
       <MpFlex direction="column" gap="1" paddingX="2">
-        <MpFlex
-          v-for="subItem in activeSubmenuData.items"
-          :key="subItem.label"
-          alignItems="center"
-          gap="3"
-          paddingX="2"
-          paddingY="2"
-          :class="isActive(subItem.route) ? 'nav-item nav-item--active' : 'nav-item'"
-          :style="{
-            height: '36px',
-            borderRadius: '6px',
-            cursor: 'pointer',
-            flexShrink: '0',
-            transition: 'background-color 150ms ease',
-            backgroundColor: isActive(subItem.route) ? 'var(--mp-colors-background-brand-selected)' : 'transparent',
-          }"
-          @click="subItem.newTab ? openNewTab(subItem.route) : router.push(subItem.route)"
-        >
-          <MpText
-            size="label"
-            :weight="isActive(subItem.route) ? 'semiBold' : 'regular'"
+        <template v-for="subItem in activeSubmenuData.items" :key="subItem.label">
+
+          <!-- ── Accordion parent (has children) ── -->
+          <template v-if="subItem.children">
+            <MpFlex
+              alignItems="center"
+              gap="3"
+              paddingX="2"
+              paddingY="2"
+              class="nav-item"
+              :style="{
+                height: '36px',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                flexShrink: '0',
+                transition: 'background-color 150ms ease',
+                backgroundColor: expandedAccordion === subItem.route
+                  ? 'var(--mp-colors-background-brand-selected)'
+                  : 'transparent',
+              }"
+              @click="toggleAccordion(subItem)"
+            >
+              <MpText
+                size="label"
+                :weight="expandedAccordion === subItem.route ? 'semiBold' : 'regular'"
+                :style="{
+                  flex: '1',
+                  minWidth: '0',
+                  overflow: 'hidden',
+                  whiteSpace: 'nowrap',
+                  textOverflow: 'ellipsis',
+                  color: expandedAccordion === subItem.route
+                    ? 'var(--mp-colors-text-selected)'
+                    : 'var(--mp-colors-text-default)',
+                }"
+              >{{ subItem.label }}</MpText>
+              <MpIcon
+                :name="expandedAccordion === subItem.route ? 'chevrons-down' : 'chevrons-right'"
+                size="sm"
+                :color="expandedAccordion === subItem.route ? 'icon.brand' : 'icon.default'"
+              />
+            </MpFlex>
+
+            <!-- Accordion children -->
+            <template v-if="expandedAccordion === subItem.route">
+              <MpFlex
+                v-for="child in subItem.children"
+                :key="child.label"
+                alignItems="center"
+                gap="3"
+                paddingY="2"
+                :class="isActive(child.route) ? 'nav-item nav-item--active' : 'nav-item'"
+                :style="{
+                  height: '36px',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  flexShrink: '0',
+                  transition: 'background-color 150ms ease',
+                  paddingLeft: '28px',
+                  paddingRight: '8px',
+                  backgroundColor: 'transparent',
+                }"
+                @click="router.push(child.route)"
+              >
+                <MpText
+                  size="label"
+                  :weight="isActive(child.route) ? 'semiBold' : 'regular'"
+                  :style="{
+                    flex: '1',
+                    minWidth: '0',
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
+                    textOverflow: 'ellipsis',
+                    color: isActive(child.route)
+                      ? 'var(--mp-colors-text-default)'
+                      : 'var(--mp-colors-text-secondary)',
+                  }"
+                >{{ child.label }}</MpText>
+              </MpFlex>
+            </template>
+          </template>
+
+          <!-- ── Regular item (no children) ── -->
+          <MpFlex
+            v-else
+            alignItems="center"
+            gap="3"
+            paddingX="2"
+            paddingY="2"
+            :class="isActive(subItem.route) ? 'nav-item nav-item--active' : 'nav-item'"
             :style="{
-              flex: '1',
-              color: isActive(subItem.route) ? 'var(--mp-colors-text-selected)' : 'var(--mp-colors-text-default)',
+              height: '36px',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              flexShrink: '0',
+              transition: 'background-color 150ms ease',
+              backgroundColor: isActive(subItem.route)
+                ? 'var(--mp-colors-background-brand-selected)'
+                : 'transparent',
             }"
-          >{{ subItem.label }}</MpText>
-          <MpIcon v-if="subItem.newTab" name="newtab" size="sm" color="icon.default" />
-        </MpFlex>
+            @click="subItem.newTab ? openNewTab(subItem.route) : router.push(subItem.route)"
+          >
+            <MpText
+              size="label"
+              :weight="isActive(subItem.route) ? 'semiBold' : 'regular'"
+              :style="{
+                flex: '1',
+                minWidth: '0',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+                color: isActive(subItem.route)
+                  ? 'var(--mp-colors-text-selected)'
+                  : 'var(--mp-colors-text-default)',
+              }"
+            >{{ subItem.label }}</MpText>
+            <MpIcon v-if="subItem.newTab"        name="newtab"         size="sm" color="icon.default" />
+            <MpIcon v-else-if="subItem.hasArrow" name="chevron-right" size="sm" color="icon.default" />
+            <MpBadge v-if="subItem.count"        for="additionalInformation" type="critical" size="sm">{{ subItem.count }}</MpBadge>
+          </MpFlex>
+
+        </template>
       </MpFlex>
 
     </div>
@@ -166,6 +260,10 @@
 
   <!-- Page content -->
   <div :style="contentStyle">
+    <MpFlex justify="space-between" align-items="center" px="6" py="1.063rem">
+      <MpText size="h1" weight="semiBold">{{ activePageTitle }}</MpText>
+      <MpButton left-icon="add">Action</MpButton>
+    </MpFlex>
     <slot />
   </div>
 </template>
@@ -243,12 +341,81 @@
           ]
         }
       },
-      { icon: 'talent-management', label: 'Loyalty',   route: '/loyalty',   badge: false },
-      { icon: 'reports',           label: 'Reports',   route: '/reports',   badge: false },
+      { icon: 'talent-management', label: 'Loyalty', route: '/loyalty', badge: false,
+        submenu: {
+          title: 'Loyalty',
+          items: [
+            { label: 'Members', route: '/loyalty/members', children: [
+              { label: 'Member list',        route: '/loyalty/members/member-list'        },
+              { label: 'Member wallets',     route: '/loyalty/members/member-wallets'     },
+              { label: 'Member tier status', route: '/loyalty/members/member-tier-status' },
+            ]},
+            { label: 'Points & rewards', route: '/loyalty/points-rewards', children: [
+              { label: 'Points activity',   route: '/loyalty/points-rewards/points-activity'   },
+              { label: 'Reward redemption', route: '/loyalty/points-rewards/reward-redemption' },
+            ]},
+            { label: 'Configurations', route: '/loyalty/configurations', children: [
+              { label: 'Master activity', route: '/loyalty/configurations/master-activity' },
+              { label: 'Currencies',      route: '/loyalty/configurations/currencies'      },
+              { label: 'Tiers',           route: '/loyalty/configurations/tiers'           },
+              { label: 'Earning rules',   route: '/loyalty/configurations/earning-rules'   },
+              { label: 'Rewards',         route: '/loyalty/configurations/rewards'         },
+            ]},
+          ]
+        }
+      },
+      { icon: 'reports', label: 'Reports', route: '/reports', badge: false,
+        submenu: {
+          title: 'Reports',
+          items: [
+            { label: 'General reports',     route: '/reports/general-reports'     },
+            { label: 'Business operations', route: '/reports/business-operations' },
+            { label: 'Customer insights',   route: '/reports/customer-insights'   },
+            { label: 'Agent performance', route: '/reports/agent-performance', children: [
+              { label: 'SLA',            route: '/reports/agent-performance/sla'            },
+              { label: 'Performance',    route: '/reports/agent-performance/performance'    },
+              { label: 'Agent scoring',  route: '/reports/agent-performance/agent-scoring'  },
+            ]},
+            { label: 'Ticketing report',    route: '/reports/ticketing-report'    },
+            { label: 'Broadcast', route: '/reports/broadcast', children: [
+              { label: 'Summary',  route: '/reports/broadcast/summary'  },
+              { label: 'Activity', route: '/reports/broadcast/activity' },
+            ]},
+            { label: 'Bot performance',     route: '/reports/bot-performance'     },
+            { label: 'Mekari Insights',     route: '/reports/mekari-insights'     },
+            { label: 'Custom goals',        route: '/reports/custom-goals'        },
+            { label: 'Survey', route: '/reports/survey', children: [
+              { label: 'CSAT', route: '/reports/survey/csat' },
+              { label: 'CES',  route: '/reports/survey/ces'  },
+              { label: 'NPS',  route: '/reports/survey/nps'  },
+            ]},
+            { label: 'Export',              route: '/reports/export'              },
+          ]
+        }
+      },
     ],
     [
-      { icon: 'sales',        label: 'Deals',   route: '/deals',   badge: false },
-      { icon: 'voucher',      label: 'Tickets', route: '/tickets', badge: false },
+      { icon: 'sales', label: 'Deals', route: '/deals', badge: false,
+        submenu: {
+          title: 'Deals',
+          items: [
+            { label: 'All deals',        route: '/deals/all-deals'        },
+            { label: 'Need my approval', route: '/deals/need-my-approval', count: 2 },
+          ]
+        }
+      },
+      { icon: 'voucher', label: 'Tickets', route: '/tickets', badge: false,
+        submenu: {
+          title: 'Tickets',
+          items: [
+            { label: 'All tickets',        route: '/tickets/all-tickets'        },
+            { label: 'Assigned to my team', route: '/tickets/assigned-to-my-team' },
+            { label: 'Assigned to me',     route: '/tickets/assigned-to-me'     },
+            { label: 'Unassigned',         route: '/tickets/unassigned'         },
+            { label: 'Report by me',       route: '/tickets/report-by-me'       },
+          ]
+        }
+      },
       { icon: 'competencies', label: 'Tasks',   route: '/tasks',   badge: false },
     ],
     [
@@ -268,28 +435,139 @@
       { icon: 'expenses', label: 'Expenses',  route: '/expenses',  badge: false },
     ],
     [
-      { icon: 'officeless', label: 'Custom solutions', route: '/custom-solutions', badge: false },
+      { icon: 'officeless', label: 'Custom solutions', route: '/custom-solutions', badge: false,
+        submenu: {
+          title: 'Custom solutions',
+          items: [
+            { label: 'Applications', route: '/custom-solutions/applications' },
+            { label: 'Workflows',    route: '/custom-solutions/workflows'    },
+            { label: 'Reports',      route: '/custom-solutions/reports'      },
+          ]
+        }
+      },
     ],
     [
       { icon: 'transfer', label: 'Subscription', route: '/subscription', badge: false },
-      { icon: 'settings', label: 'Settings',     route: '/settings',     badge: false },
+      { icon: 'settings', label: 'Settings', route: '/settings', badge: false,
+        submenu: {
+          title: 'Settings',
+          items: [
+            { label: 'Account', route: '/settings/account', children: [
+              { label: 'Users',           route: '/settings/account/users'           },
+              { label: 'Company setting', route: '/settings/account/company-setting' },
+              { label: 'Roles',           route: '/settings/account/roles'           },
+              { label: 'Teams',           route: '/settings/account/teams'           },
+              { label: 'Security',        route: '/settings/account/security'        },
+            ]},
+            { label: 'Bot & automation', route: '/settings/bot-automation', children: [
+              { label: 'Automated actions',    route: '/settings/bot-automation/automated-actions'    },
+              { label: 'Bot configuration',    route: '/settings/bot-automation/bot-configuration'    },
+              { label: 'WhatsApp auto-message', route: '/settings/bot-automation/whatsapp-auto-message' },
+              { label: 'Mekari Airene',        route: '/settings/bot-automation/mekari-airene'        },
+              { label: 'Chat conversion',      route: '/settings/bot-automation/chat-conversion'      },
+            ]},
+            { label: 'Assignment', route: '/settings/assignment', children: [
+              { label: 'Chat', route: '/settings/assignment/chat' },
+              { label: 'Call', route: '/settings/assignment/call' },
+            ]},
+            { label: 'SLA management', route: '/settings/sla-management', children: [
+              { label: 'Inbox SLA',  route: '/settings/sla-management/inbox-sla'  },
+              { label: 'Ticket SLA', route: '/settings/sla-management/ticket-sla' },
+            ]},
+            { label: 'Feature configuration', route: '/settings/feature-configuration', children: [
+              { label: 'Inbox',                route: '/settings/feature-configuration/inbox'                },
+              { label: 'Call',                 route: '/settings/feature-configuration/call'                 },
+              { label: 'Agent management',     route: '/settings/feature-configuration/agent-management'     },
+              { label: 'Feature list',         route: '/settings/feature-configuration/feature-list'         },
+              { label: 'Payments & expenses',  route: '/settings/feature-configuration/payments-expenses'    },
+              { label: 'Approval',             route: '/settings/feature-configuration/approval'             },
+              { label: 'Live location',        route: '/settings/feature-configuration/live-location'        },
+              { label: 'Tracking time',        route: '/settings/feature-configuration/tracking-time'        },
+            ]},
+            { label: 'Customization', route: '/settings/customization', children: [
+              { label: 'Layout',         route: '/settings/customization/layout'         },
+              { label: 'Company locale', route: '/settings/customization/company-locale' },
+              { label: 'Deal locale',    route: '/settings/customization/deal-locale'    },
+              { label: 'Product locale', route: '/settings/customization/product-locale' },
+              { label: 'Task locale',    route: '/settings/customization/task-locale'    },
+              { label: 'Customers',      route: '/settings/customization/customers'      },
+              { label: 'Companies',      route: '/settings/customization/companies'      },
+              { label: 'Deals',          route: '/settings/customization/deals'          },
+              { label: 'Products',       route: '/settings/customization/products'       },
+              { label: 'Tasks',          route: '/settings/customization/tasks'          },
+              { label: 'Tickets',        route: '/settings/customization/tickets'        },
+            ]},
+            { label: 'Data management', route: '/settings/data-management', children: [
+              { label: 'Business operations', route: '/settings/data-management/business-operations' },
+              { label: 'Export to GSheet',    route: '/settings/data-management/export-to-gsheet'   },
+              { label: 'Bot',                 route: '/settings/data-management/bot'                 },
+            ]},
+            { label: 'Integrations', route: '/settings/integrations', children: [
+              { label: 'Outlook email sync',  route: '/settings/integrations/outlook-email-sync'  },
+              { label: 'Facebook leads',      route: '/settings/integrations/facebook-leads'      },
+              { label: 'Bot API token',       route: '/settings/integrations/bot-api-token'       },
+              { label: 'Channel integration', route: '/settings/integrations/channel-integration' },
+            ]},
+            { label: 'Performance management', route: '/settings/performance-management', children: [
+              { label: 'User performance',  route: '/settings/performance-management/user-performance'  },
+              { label: 'Customer survey',   route: '/settings/performance-management/customer-survey'   },
+              { label: 'Scorecard',         route: '/settings/performance-management/scorecard'         },
+            ]},
+          ]
+        }
+      },
     ],
   ]
 
+  // ─── Active page title (driven by nav structure) ─────────────────────────────
+  const activePageTitle = computed(() => {
+    const path = route.path
+    for (const group of navGroups) {
+      for (const item of group) {
+        if (!item.submenu) {
+          if (path === '/' ? item.route === '/' : path === item.route) return item.label
+        }
+        if (item.submenu) {
+          for (const sub of (item.submenu as any).items) {
+            if (sub.children) {
+              for (const child of sub.children) {
+                if (path === child.route) return child.label
+              }
+            } else if (path === sub.route) {
+              return sub.label
+            }
+          }
+        }
+      }
+    }
+    return ''
+  })
+
   // ─── Submenu state ───────────────────────────────────────────────────────────
-  const activeSubmenu = ref<string | null>(null)
+  const activeSubmenu      = ref<string | null>(null)
+  const expandedAccordion  = ref<string | null>(null)
 
   // Flatten all items to find submenu definitions
   const allNavItems = navGroups.flat()
 
-  // Auto-open/close submenu based on current route
+  // Auto-open/close submenu and accordion based on current route
   watch(
     () => route.path,
     (newPath) => {
       const match = allNavItems.find(
-        item => item.submenu && newPath.startsWith(item.route)
+        (item: any) => item.submenu && newPath.startsWith(item.route)
       )
       activeSubmenu.value = match ? match.route : null
+
+      // Auto-expand/collapse accordion based on current route
+      if (match?.submenu) {
+        const accordionParent = (match.submenu as any).items.find(
+          (item: any) => item.children && newPath.startsWith(item.route)
+        )
+        expandedAccordion.value = accordionParent ? accordionParent.route : null
+      } else {
+        expandedAccordion.value = null
+      }
     },
     { immediate: true }
   )
@@ -306,14 +584,27 @@
     window.open(path, '_blank')
   }
 
-  function handleNavClick(item: { route: string; submenu?: { title: string; items: { label: string; route: string; newTab?: boolean }[] } }) {
+  function handleNavClick(item: any) {
     if (item.submenu) {
       activeSubmenu.value = item.route
-      router.push(item.submenu.items[0].route)
+      // If first submenu item is an accordion parent, expand it and navigate to first child
+      const firstItem = item.submenu.items[0]
+      if (firstItem.children) {
+        expandedAccordion.value = firstItem.route
+        router.push(firstItem.children[0].route)
+      } else {
+        router.push(firstItem.route)
+      }
     } else {
       activeSubmenu.value = null
       router.push(item.route)
     }
+  }
+
+  function toggleAccordion(item: any) {
+    const isExpanding = expandedAccordion.value !== item.route
+    expandedAccordion.value = isExpanding ? item.route : null
+    if (isExpanding) router.push(item.children[0].route)
   }
 
   const isActive = (itemRoute: string) =>
@@ -403,6 +694,8 @@
     paddingTop: TOPBAR_HEIGHT,
     minHeight: '100svh',
     backgroundColor: 'var(--mp-colors-background-surface)',
+    display: 'flex',
+    flexDirection: 'column' as const,
   }))
 
   const profileHoverClass = css({ _hover: { bg: 'background.neutral.hovered' } })

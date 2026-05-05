@@ -56,27 +56,28 @@
             gap="3"
             paddingX="2"
             paddingY="2"
-            :class="item.active ? 'nav-item nav-item--active' : 'nav-item'"
+            :class="isActive(item.route) ? 'nav-item nav-item--active' : 'nav-item'"
             :style="{
               height: '36px',
               borderRadius: '6px',
               cursor: 'pointer',
               flexShrink: '0',
               transition: 'background-color 150ms ease',
-              backgroundColor: item.active ? 'var(--mp-colors-background-brand-selected)' : 'transparent',
+              backgroundColor: isActive(item.route) ? 'var(--mp-colors-background-brand-selected)' : 'transparent',
             }"
+            @click="router.push(item.route)"
           >
             <MpIcon
               :name="item.icon"
-              :variant="item.active ? 'fill' : 'outline'"
+              :variant="isActive(item.route) ? 'fill' : 'outline'"
               size="sm"
-              :color="item.active ? 'icon.brand' : 'icon.default'"
+              :color="isActive(item.route) ? 'icon.brand' : 'icon.default'"
             />
             <MpFlex alignItems="center" gap="1" :style="{ flex: '1' }">
               <MpText
                 size="label"
-                :weight="item.active ? 'semiBold' : 'regular'"
-                :style="{ color: item.active ? 'var(--mp-colors-text-selected)' : 'var(--mp-colors-text-default)' }"
+                :weight="isActive(item.route) ? 'semiBold' : 'regular'"
+                :style="{ color: isActive(item.route) ? 'var(--mp-colors-text-selected)' : 'var(--mp-colors-text-default)' }"
               >{{ item.label }}</MpText>
               <MpBadge v-if="item.badge" for="additionalInformation" type="critical" size="sm">NEW</MpBadge>
             </MpFlex>
@@ -111,42 +112,49 @@
 
 <script setup lang="ts">
   import { computed } from 'vue'
+  import { useRoute, useRouter } from 'vue-router'
   import { MpFlex, MpText, MpAvatar, MpIcon, MpBadge, MpButton, css } from '@mekari/pixel3'
   import { SIDEBAR_WIDTH, TOPBAR_HEIGHT } from '~/composables/usePixelLayout'
 
+  const route  = useRoute()
+  const router = useRouter()
+
   const navGroups = [
     [
-      { icon: 'home',      label: 'Home',             active: true,  badge: false },
-      { icon: 'inbox',     label: 'Inbox',            active: false, badge: false },
-      { icon: 'phone',     label: 'Calls',            active: false, badge: true  },
-      { icon: 'broadcast', label: 'Campaigns',        active: false, badge: false },
-      { icon: 'chatbot',   label: 'Bot & automation', active: false, badge: false },
+      { icon: 'home',      label: 'Home',             route: '/',                badge: false },
+      { icon: 'inbox',     label: 'Inbox',            route: '/inbox',           badge: false },
+      { icon: 'phone',     label: 'Calls',            route: '/calls',           badge: true  },
+      { icon: 'broadcast', label: 'Campaigns',        route: '/campaigns',       badge: false },
+      { icon: 'chatbot',   label: 'Bot & automation', route: '/bot-automation',  badge: false },
     ],
     [
-      { icon: 'team',              label: 'Customers', active: false, badge: false },
-      { icon: 'talent-management', label: 'Loyalty',   active: false, badge: false },
-      { icon: 'reports',           label: 'Reports',   active: false, badge: false },
+      { icon: 'team',              label: 'Customers', route: '/customers', badge: false },
+      { icon: 'talent-management', label: 'Loyalty',   route: '/loyalty',   badge: false },
+      { icon: 'reports',           label: 'Reports',   route: '/reports',   badge: false },
     ],
     [
-      { icon: 'sales',        label: 'Deals',   active: false, badge: false },
-      { icon: 'voucher',      label: 'Tickets', active: false, badge: false },
-      { icon: 'competencies', label: 'Tasks',   active: false, badge: false },
+      { icon: 'sales',        label: 'Deals',   route: '/deals',   badge: false },
+      { icon: 'voucher',      label: 'Tickets', route: '/tickets', badge: false },
+      { icon: 'competencies', label: 'Tasks',   route: '/tasks',   badge: false },
     ],
     [
-      { icon: 'shop',     label: 'Commerce',  active: false, badge: true  },
-      { icon: 'book',     label: 'Resources', active: false, badge: false },
-      { icon: 'doc',      label: 'Documents', active: false, badge: false },
-      { icon: 'products', label: 'Products',  active: false, badge: false },
-      { icon: 'expenses', label: 'Expenses',  active: false, badge: false },
+      { icon: 'shop',     label: 'Commerce',  route: '/commerce',   badge: true  },
+      { icon: 'book',     label: 'Resources', route: '/resources',  badge: false },
+      { icon: 'doc',      label: 'Documents', route: '/documents',  badge: false },
+      { icon: 'products', label: 'Products',  route: '/products',   badge: false },
+      { icon: 'expenses', label: 'Expenses',  route: '/expenses',   badge: false },
     ],
     [
-      { icon: 'officeless', label: 'Custom solutions', active: false, badge: false },
+      { icon: 'officeless', label: 'Custom solutions', route: '/custom-solutions', badge: false },
     ],
     [
-      { icon: 'transfer', label: 'Subscription', active: false, badge: false },
-      { icon: 'settings', label: 'Settings',     active: false, badge: false },
+      { icon: 'transfer', label: 'Subscription', route: '/subscription', badge: false },
+      { icon: 'settings', label: 'Settings',     route: '/settings',     badge: false },
     ],
   ]
+
+  const isActive = (itemRoute: string) =>
+    itemRoute === '/' ? route.path === '/' : route.path.startsWith(itemRoute)
 
   const headerBg     = 'var(--mp-colors-background-neutral)'
   const headerBorder = '1px solid var(--mp-colors-border-default)'

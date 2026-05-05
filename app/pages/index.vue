@@ -15,7 +15,7 @@
         borderColor: 'border.default',
         roundedTopLeft: 'md',
         p: 6,
-        minH: '100svh',
+        flexGrow: '1',
       })"
     >
       <!-- place content here -->

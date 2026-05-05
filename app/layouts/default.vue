@@ -5,7 +5,17 @@
       <img src="https://cdn.mekari.design/logo/qontak/default.svg" alt="Qontak" height="32" />
     </div>
     <div data-slot="rightContent" :style="{ display: 'flex', gap: '8px', alignItems: 'center' }">
-      <MpButton variant="ghost" left-icon="bell" aria-label="notification button" />
+      <AppStatusButton />
+      <div :style="{ position: 'relative', display: 'inline-flex' }">
+        <MpButton variant="ghost" left-icon="notification" aria-label="notification button" />
+        <MpBadge
+          for="indicator"
+          type="critical"
+          size="sm"
+          :style="{ position: 'absolute', top: '6px', right: '6px', pointerEvents: 'none' }"
+        />
+      </div>
+      <MpButton variant="ghost" left-icon="shortcuts" aria-label="shortcuts button" />
       <MpFlex
         alignItems="center"
         gap="3"

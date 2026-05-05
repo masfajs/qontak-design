@@ -254,7 +254,16 @@
     [
       { icon: 'shop',     label: 'Commerce',  route: '/commerce',  badge: true  },
       { icon: 'book',     label: 'Resources', route: '/resources', badge: false },
-      { icon: 'doc',      label: 'Documents', route: '/documents', badge: false },
+      { icon: 'doc',      label: 'Documents', route: '/documents', badge: false,
+        submenu: {
+          title: 'Documents',
+          items: [
+            { label: 'Documents list', route: '/documents/documents-list' },
+            { label: 'Templates',      route: '/documents/templates'      },
+            { label: 'Short code',     route: '/documents/short-code'     },
+          ]
+        }
+      },
       { icon: 'products', label: 'Products',  route: '/products',  badge: false },
       { icon: 'expenses', label: 'Expenses',  route: '/expenses',  badge: false },
     ],
@@ -408,4 +417,4 @@
 .nav-item:not(.nav-item--active):hover :deep(svg.mp-icon) {
   --mp-icon-color: var(--mp-colors-icon-brand) !important;
 }
-</style>
+</style>c

@@ -49,7 +49,8 @@
       "Read(//usr/local/bin/**)",
       "Read(//usr/local/**)",
       "Bash(curl -s -H 'Authorization: Bearer __CMDSUB_OUTPUT__' 'https://api.github.com/repos/masfajs/qontak-design/pulls?head=masfajs:claude/mystifying-spence-55c131&state=open')",
-      "Bash(git remote *)"
+      "Bash(git remote *)",
+      "Bash(npx skills *)"
     ]
   }
 }

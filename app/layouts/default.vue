@@ -262,7 +262,7 @@
   <div :style="contentStyle">
     <MpFlex justify="space-between" align-items="center" px="6" py="1.063rem">
       <MpText size="h1" weight="semiBold">{{ activePageTitle }}</MpText>
-      <MpButton left-icon="add">Action</MpButton>
+      <MpButton v-bind="pageAction.icon !== null ? { 'left-icon': pageAction.icon ?? 'add' } : {}">{{ pageAction.label ?? 'Action' }}</MpButton>
     </MpFlex>
     <slot />
   </div>
@@ -279,6 +279,8 @@
 
   const route  = useRoute()
   const router = useRouter()
+
+  const pageAction = computed(() => (route.meta as any).pageAction ?? {})
 
   // ─── Nav groups ─────────────────────────────────────────────────────────────
   // Untuk menambah submenu pada menu manapun, tambahkan properti `submenu`:

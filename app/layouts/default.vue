@@ -420,7 +420,15 @@
     ],
     [
       { icon: 'shop',     label: 'Commerce',  route: '/commerce',  badge: true  },
-      { icon: 'book',     label: 'Resources', route: '/resources', badge: false },
+      { icon: 'book',     label: 'Resources', route: '/resources', badge: false,
+        submenu: {
+          title: 'Resources',
+          items: [
+            { label: 'AI resources',   route: '/resources/ai-resources'   },
+            { label: 'Knowledge Base', route: '/resources/knowledge-base' },
+          ]
+        }
+      },
       { icon: 'doc',      label: 'Documents', route: '/documents', badge: false,
         submenu: {
           title: 'Documents',

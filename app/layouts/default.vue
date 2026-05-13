@@ -256,6 +256,33 @@
       </MpFlex>
 
     </div>
+
+    <MpFlex v-if="isCampaignTemplatesPage" paddingX="3" paddingBottom="4" :style="{ flexShrink: '0' }">
+      <MpFlex
+        direction="column"
+        gap="3"
+        padding="3"
+        :style="{
+          width: '100%',
+          borderRadius: '6px',
+          backgroundColor: 'var(--mp-colors-background-brand-selected)',
+        }"
+      >
+        <MpFlex direction="column" gap="2">
+          <MpText size="label" weight="semiBold">Explore new WhatsApp campaign template</MpText>
+          <MpText size="body-small" color="text.secondary">
+            Experience enhanced user interface and performance with the updated WhatsApp template builder.
+          </MpText>
+        </MpFlex>
+
+        <MpButton variant="secondary" size="sm" :style="{ width: '100%' }">
+          Switch to old template
+        </MpButton>
+        <MpButton variant="primary" size="sm" :style="{ width: '100%' }">
+          Give feedback
+        </MpButton>
+      </MpFlex>
+    </MpFlex>
   </aside>
 
   <!-- Page content -->
@@ -590,6 +617,8 @@
     return allNavItems.find(item => item.route === activeSubmenu.value)?.submenu ?? null
   })
 
+  const isCampaignTemplatesPage = computed(() => route.path === '/campaigns/templates')
+
   function openNewTab(path: string) {
     window.open(path, '_blank')
   }
@@ -720,4 +749,4 @@
 .nav-item:not(.nav-item--active):hover :deep(svg.mp-icon) {
   --mp-icon-color: var(--mp-colors-icon-brand) !important;
 }
-</style>c
+</style>

@@ -2,21 +2,37 @@
 
 Every Mekari product screen sits inside this shell. Read this once when starting a new screen, then move to the pattern reference for the page content.
 
+## Color zones (the most-confused part)
+
+Before anything else: Mekari uses **surface** (slate `#F1F5F9`) and **stage** (white) in a specific alternating pattern. The principle is *surface frames, stage holds content* — but the zones aren't intuitive, so here's the explicit map:
+
+| Zone | Background |
+|---|---|
+| Top bar | `Color/Background/stage` (white) |
+| Nav rail (any variant: single, dual primary, dual secondary) | `Color/Background/surface` |
+| Page header area (the band that holds breadcrumb, H1, status pill, primary CTA, tab bar) | `Color/Background/surface` |
+| Content area (below the page header, holds cards / tables / forms) | `Color/Background/stage` (white) |
+| Card inside the content area (when a pattern uses one) | `Color/Background/stage` (white) — same as content area, separated by border |
+| Table header row | `Color/Background/surface` |
+| Table body rows | `Color/Background/stage` (white) |
+| Floating layers (dropdowns, modals, popovers) | `Color/Background/stage` (white) with elevation |
+
+**Most common mistake**: putting white on the nav rail or page header, putting surface on the content area. If a generated screen feels "off" in a way you can't name, check the backgrounds against this table first.
+
 ## Three zones
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ Top bar (56px, white)                                       │
 ├──────┬──────────────────────────────────────────────────────┤
-│      │                                                      │
-│ Nav  │  Content area  (bg: Color/Background/surface)       │
+│      │ Page header (surface)                                │
+│      │   Breadcrumb / H1 + status pill / CTA / tabs         │
+│ Nav  ├──────────────────────────────────────────────────────┤
 │ rail │                                                      │
+│ (sur-│ Content area (white)                                 │
+│ face)│                                                      │
 │      │   ┌──────────────────────────────────────────┐      │
-│      │   │ Page header (breadcrumb, H1, status,     │      │
-│      │   │              CTA, optional tab bar)      │      │
-│      │   └──────────────────────────────────────────┘      │
-│      │   ┌──────────────────────────────────────────┐      │
-│      │   │ Card / table / form  (bg: white)         │      │
+│      │   │ Card / table / form  (white)             │      │
 │      │   │                                          │      │
 │      │   └──────────────────────────────────────────┘      │
 │      │                                                      │
@@ -46,7 +62,7 @@ Every Mekari product screen sits inside this shell. Read this once when starting
 
 ### Single rail with labels (Qontak, Talenta)
 - Width ~210px.
-- White background.
+- Background: `Color/Background/surface`.
 - Right border: `Color/Border/default` 1px.
 - Items: icon + label, padding `pxl-space-sm` 12 vertical, `pxl-space-md` 16 horizontal, gap `pxl-space-sm` 12.
 - Default state: text `Color/Text/secondary`, icon `Color/Icon/default`.
@@ -57,22 +73,33 @@ Every Mekari product screen sits inside this shell. Read this once when starting
 
 ### Dual rail (Expense)
 - Use when the product has 4+ modules each containing 4+ sub-pages.
-- Primary rail: ~64px wide, icon-only, white. Active module has bg `Color/Background/brand-selected` + icon `Color/Icon/brand`. Bottom: collapse toggle.
-- Secondary sidebar: ~210px wide, white, right border `Color/Border/default`.
+- Primary rail: ~64px wide, icon-only, background `Color/Background/surface`. Active module has bg `Color/Background/brand-selected` + icon `Color/Icon/brand`. Bottom: collapse toggle.
+- Secondary sidebar: ~210px wide, background `Color/Background/surface`, right border `Color/Border/default`.
   - Top: `Overline/Semibold` section header in uppercase (the module name: "TRANSACTIONS", "REPORTS"). Padding `pxl-space-md` top, `pxl-space-md` left.
   - List items below: `Label/Regular`, padding `pxl-space-sm` 12 vertical, `pxl-space-md` 16 horizontal.
   - Active item: bg `Color/Background/brand-selected`, text `Color/Text/selected`.
   - Bottom of secondary sidebar: collapse toggle.
 
+## Page header area
+
+The page header band sits **above** the content area, on `Color/Background/surface`. It holds breadcrumb, H1 + optional status pill, primary CTA, and optional tab bar. The page header is **not** inside a card and is **not** on white — it shares the surface tone with the nav rail.
+
+- Background: `Color/Background/surface`.
+- Horizontal padding: `pxl-space-xl` 24.
+- Vertical padding: `pxl-space-xl` 24 top, `pxl-space-md` 16 bottom.
+- Bottom edge: no explicit border — the transition from surface to the white content area below is the visual separator.
+
 ## Content area
 
-- Background: `Color/Background/surface` (`#F1F5F9`).
+The main work area, below the page header.
+
+- Background: `Color/Background/stage` (white).
 - Padding inside: `pxl-space-xl` 24 horizontal, `pxl-space-xl` 24 top, `pxl-space-3xl` 40 bottom.
 - Max width: none by default. Let content stretch to fill. Form pages are an exception — see `form-view.md`.
 
-## Page header (sits on stage, not inside a card)
+## Page header internals (breadcrumb, H1, CTA, tabs)
 
-Vertical order, with `pxl-space-xs` 8 gap between rows:
+Vertical order inside the page header area, with `pxl-space-xs` 8 gap between rows:
 
 1. **Breadcrumb** (optional) — `Label small/Regular Color/Text/secondary`. Separator: ` / ` with spaces. Last segment is the current page, not clickable, same color as others (no bold). Hide breadcrumb if depth is 1.
 2. **Title row** — flex row, space-between:
@@ -80,7 +107,7 @@ Vertical order, with `pxl-space-xs` 8 gap between rows:
    - Right: primary CTA button. See "Primary CTA" below.
 3. **Tab bar** (optional) — see "Tab bar" below.
 
-Gap between page header bottom and the card below it: `pxl-space-md` 16.
+Gap between the bottom of the page header area (surface) and the top of the content area (white): `pxl-space-md` 16. No divider line — the color transition is the separator.
 
 ### Primary CTA in header
 - Button variant: solid brand. Background `Color/Background/brand-bold`, text `Color/Text/inverse` (white), `Label/Semibold` 14.

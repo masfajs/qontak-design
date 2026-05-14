@@ -126,6 +126,14 @@ When the table has zero rows (either no data ever, or filtered to empty):
 - **Export** — CSV, XLSX, or PDF? What's the row limit before it goes to async email delivery?
 - **Real-time updates** — does this list refresh while the user is on it (Qontak inbox, Expense notifications)?
 
+## Anti-patterns specific to this pattern
+
+- **Card-per-row layout.** Never wrap each record in a card. Cards consume vertical space and break scannability. Use table rows — flat, with a 1px bottom border separator. The only card allowed on an index page is a summary card above the table (for aggregate context like total balance or active package), and only when it genuinely changes how the user reads the table.
+- **Outer border on the table.** The table is borderless on the outside. The page's content area provides the boundary.
+- **Zebra striping.** Rows alternate only via the 1px bottom border. No alternating background colors.
+- **Center-aligned numeric columns.** Always right-align numbers — amounts, counts, percentages.
+- **Colored row backgrounds for status.** Status goes inside a pill in the cell, not as a row background tint.
+
 ## Output contract for this pattern
 
 When you ship an index view:

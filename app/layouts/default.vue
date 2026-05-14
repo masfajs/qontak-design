@@ -287,9 +287,12 @@
 
   <!-- Page content -->
   <div :style="contentStyle">
-    <MpFlex justify="space-between" align-items="center" px="6" py="1.063rem">
+    <MpFlex justify="space-between" px="6" :style="{ height: '72px', flexShrink: '0', alignItems: 'center' }">
       <MpText size="h1" weight="semiBold">{{ activePageTitle }}</MpText>
-      <MpButton v-bind="pageAction.icon !== null ? { 'left-icon': pageAction.icon ?? 'add' } : {}">{{ pageAction.label ?? 'Action' }}</MpButton>
+      <MpButton
+        v-if="pageAction.label !== null"
+        v-bind="pageAction.icon !== null ? { 'left-icon': pageAction.icon ?? 'add' } : {}"
+      >{{ pageAction.label ?? 'Action' }}</MpButton>
     </MpFlex>
     <slot />
   </div>
@@ -352,6 +355,7 @@
           items: [
             { label: 'Conversations',       route: '/bot-automation/conversations'       },
             { label: 'AI agents',           route: '/bot-automation/ai-agents'           },
+            { label: 'Knowledge Base',       route: '/bot-automation/knowledge-base'      },
             { label: 'Custom instruction',  route: '/bot-automation/custom-instruction'  },
             { label: 'Settings',            route: '/bot-automation/settings', newTab: true },
           ]

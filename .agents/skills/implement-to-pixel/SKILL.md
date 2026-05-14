@@ -148,6 +148,9 @@ Even though `mekari-taste` skill isn't loaded, the taste decisions still apply. 
 - **Table**: 1px bottom row border only, no zebra, no outer border, numerics right-aligned (override Figma if needed)
 - **Cancel button**: text link or low-emphasis, never matching weight to primary submit
 - **Required indicators**: red asterisk on label
+- **One primary button per page**: if you find more than one primary (solid brand) button on a screen, demote all but the most important one to outline or text link
+- **Stepper completed state**: use the Pixel stepper component as-is. Never create a custom variant for completed, active, or disabled steps — the component already defines these states. If the Figma shows a custom stepper variant, flag it as a deviation and implement using the standard Pixel component
+- **Button icons — function only, not decorative**: only add a left-icon to a button when the icon communicates a function that the label alone does not (e.g. `+` for "Add item", download icon for "Export"). For actions like Submit, Save, Save changes, Confirm, or Reject — no icon. If Figma shows a decorative icon on these buttons, remove it in code
 - **Copy voice**: rewrite cheerful/generic copy to plain Mekari voice. **For copy explicitly chosen by the designer in Figma, flag rewrites in the output rather than silently change** — designer may have intended that copy.
 
 ### B7. Validate against the screenshot

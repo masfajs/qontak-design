@@ -27,6 +27,10 @@ When you draw the wireframe, show this layering. Don't make everything one color
 
 Color is signal, not decoration. Brand color belongs to the primary action. Status colors belong to status indicators. Backgrounds stay neutral. Most of the screen is calm, so the few things that matter pop.
 
+**One primary button per page.** A primary button is the loudest interactive element on a screen. If there are two, neither is loud anymore — both become noise. Every page has exactly one primary action. Everything else is secondary (outline) or tertiary (text link).
+
+**Button icons communicate function, not decoration.** An icon on a button earns its place only when it adds meaning the label alone does not carry — `+` before "Add item" tells the user they're creating something new; a download icon before "Export" signals a file is coming. For actions like Submit, Save, Save changes, Confirm, or Reject, the label is already unambiguous. Adding an icon to these is visual noise — it makes the button louder without making it clearer.
+
 When you draw the wireframe, reserve color for the one or two things on the screen that genuinely deserve attention.
 
 ### 3. Accountability is visible
@@ -38,6 +42,8 @@ When you imagine a screen with status data, include actor and timestamp in your 
 ### 4. Density with breathing room
 
 Mekari is a workplace, not a feed. Users scan hundreds of rows in a sitting. Pack the information, but don't pack the eye. Generous-but-not-luxurious spacing. Rows over cards. Right-aligned numbers.
+
+**No cards for index lists or form sections.** Cards add visual weight and consume vertical space. Index lists use table rows — flat, bordered, scannable. Form sections use dividers and sub-headings — not boxed containers. Cards are reserved for summary/highlight content (like a package summary above a table), not for repeating list items or grouping form fields.
 
 When you imagine the layout, lean dense — multiple rows visible without scrolling, but each row legible.
 

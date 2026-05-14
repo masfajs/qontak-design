@@ -32,10 +32,19 @@ H1 "Request reimbursement"  (or "Edit ...")
 
 ## Form column width
 
-- Single column.
-- Width: ~440px for most forms. Up to ~560px if any field needs wider input (a long horizontal date range, a multi-select with chips).
-- Form sits **left-aligned within the card** — right side of the card stays empty. This is deliberate: forms are vertical-scanning tasks, the empty space on the right reduces eye travel and leaves room for inline help if needed.
-- Exception: forms with side-by-side related fields (start date / end date, address city / postal code) can use a 2-column grid for those rows. Field pairs: `gap pxl-space-md` 16.
+- Single column, left-aligned.
+- **Maximum 6 columns** (out of a 12-column grid). In practice this is ~440px for most forms, up to ~560px if any field needs wider input (date range, multi-select with chips).
+- Form sits **left-aligned within the content area** — right side stays empty. This is deliberate: forms are vertical-scanning tasks, the empty space on the right reduces eye travel and leaves room for inline help if needed.
+- Exception: forms with side-by-side related fields (start date / end date, address city / postal code) can use a 2-column grid for those rows only. Field pairs: gap `pxl-space-md` 16.
+
+### Form group with stepper
+
+When a form includes a stepper component, the form group position depends on the stepper's layout:
+
+- **Stepper left-aligned** (same alignment as the form group) → form group stays left-aligned, max 6 columns. The stepper and form share the same left edge.
+- **Stepper full-width** (spans the entire content area) → form group centers itself horizontally within the content area, still max 6 columns. This prevents the form from feeling anchored to one side while the stepper spans the full width above it.
+
+Never exceed 6 columns for the form group regardless of stepper layout.
 
 ## Field anatomy
 
@@ -149,6 +158,14 @@ When a field's visibility depends on another field's value:
 - Reveal/hide with a brief fade-in (150ms), don't slide.
 - Maintain field order — don't move existing fields up/down to fill space.
 - Conditional fields are still subject to the same validation; if hidden, treat their value as null/empty.
+
+## Anti-patterns specific to this pattern
+
+- **Card-per-section layout.** Never wrap form sections in cards. Form sections are separated by a horizontal divider line and a sub-section heading (`Heading/H3`), not by boxed containers. Cards add visual weight, increase nesting, and make the form feel like a settings page rather than a task.
+- **Two primary buttons.** A form has exactly one primary action (Submit, Save, Create). If there's a secondary action (Save draft), it's an outline button. Cancel is always a text link or low-emphasis button — never a primary.
+- **Primary button inside a card.** If a form section has a sub-action (like "Add benefit" inside a Benefit component section), that action is an outline button, not a primary. The page-level primary lives in the footer.
+- **Form group exceeding 6 columns.** Never stretch the form group beyond 6 columns regardless of screen width or stepper layout.
+- **Custom stepper variants.** Never create a new stepper style — use the Pixel stepper component as-is. Completed step states follow the component definition exactly.
 
 ## Edge cases the PRD probably forgot
 

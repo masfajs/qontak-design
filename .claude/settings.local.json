@@ -19,7 +19,8 @@
       "Bash(npx skills *)",
       "Bash(curl -s -o /tmp/figma_screenshot.png \"https://www.figma.com/api/mcp/asset/c6374f59-a028-452f-b5ea-29397aa25c8c\")",
       "mcp__34358bdd-d5c4-47af-9e42-76849606bdbb__get-pattern",
-      "mcp__34358bdd-d5c4-47af-9e42-76849606bdbb__get-icon-name"
+      "mcp__34358bdd-d5c4-47af-9e42-76849606bdbb__get-icon-name",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/bot-automation/knowledge-base)"
     ]
   }
 }

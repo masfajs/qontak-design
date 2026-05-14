@@ -45,6 +45,7 @@ Friction is a tool. Use it precisely.
 ### Anatomy
 - Backdrop: `rgba(0,0,0,0.4)`, click closes (only for non-destructive confirms; for destructive, require explicit cancel).
 - Modal: width ~480px, max-width 90vw. White bg, `pxl-radii-md` 6, modal-level elevation (this is a floating layer).
+- **Vertical position: `y=80px` from the top of the viewport.** Do not center vertically — top-anchored at 80px keeps it in the user's natural reading area and avoids the modal jumping when content height changes.
 - Padding: `pxl-space-xl` 24 all sides.
 
 ### Header
@@ -70,7 +71,7 @@ Friction is a tool. Use it precisely.
 
 ### Footer
 - Right-aligned cluster: Cancel + primary action button.
-- Gap `pxl-space-md` 16.
+- **Gap between action buttons: `pxl-space-sm` 12.** Always use the token — do not hardcode 12px.
 - **Cancel**: outline or text-link button, `Label/Semibold` 14.
 - **Primary action**: solid button. Color depends on action type:
   - Destructive (delete, reject, remove): `Color/Background/danger-bold` (`#C33E35`) bg, white text. Label is the verb: "Delete", "Reject", "Remove access".

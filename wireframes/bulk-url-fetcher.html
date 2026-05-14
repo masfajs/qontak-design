@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Wireframes — Bulk URL Fetcher (Bot &amp; Automation)</title>
+  <style>
+    body { background: #E2E8F0; font-family: Inter, system-ui, sans-serif; padding: 32px; margin: 0; }
+    h2 { font-size: 13px; font-weight: 600; color: #4B61DC; letter-spacing: .08em; text-transform: uppercase; margin: 40px 0 12px; }
+    h2:first-child { margin-top: 0; }
+    .frame { display: block; box-shadow: 0 4px 24px rgba(0,0,0,.12); border-radius: 8px; overflow: hidden; }
+    p.note { font-size: 12px; color: #656F80; margin: 8px 0 0; }
+  </style>
+</head>
+<body>
+
+<!--
+  Fixes applied vs previous version:
+  A. No card wrapper over white content area — step content sits directly in stage (white).
+  B. Only 1 primary button per page. "Discover" is now outline (secondary).
+     The single primary CTA is always in the sticky footer.
+  C. The URL list section uses a bordered scroll container — this is the only
+     structural border, because it constrains a virtualized scrollable list.
+     That's different from wrapping an entire page section in a card.
+-->
+
+<h2>Screen 1 — Step 1: Discover URLs</h2>
+<svg class="frame" width="680" height="830" viewBox="0 0 680 830" xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif">
+
+  <!-- TOP BAR -->
+  <rect width="680" height="56" fill="white"/>
+  <line x1="0" y1="56" x2="680" y2="56" stroke="#DCDFE4" stroke-width="1"/>
+  <rect x="16" y="14" width="116" height="28" rx="4" fill="#EEF2FF"/>
+  <text x="74" y="33" text-anchor="middle" font-size="12" font-weight="600" fill="#4B61DC">mekari qontak</text>
+  <rect x="582" y="16" width="28" height="28" rx="4" fill="#F1F5F9"/>
+  <text x="596" y="34" text-anchor="middle" font-size="12" fill="#656F80">⊕</text>
+  <rect x="616" y="16" width="28" height="28" rx="4" fill="#F1F5F9"/>
+  <text x="630" y="34" text-anchor="middle" font-size="12" fill="#656F80">🔔</text>
+  <circle cx="662" cy="30" r="14" fill="#D6DBF7"/>
+  <text x="662" y="35" text-anchor="middle" font-size="10" font-weight="600" fill="#4B61DC">RC</text>
+
+  <!-- ICON SIDEBAR (52px, dark) -->
+  <rect x="0" y="56" width="52" height="774" fill="#1E293B"/>
+  <line x1="52" y1="56" x2="52" y2="830" stroke="#334155" stroke-width="1"/>
+  <text x="26" y="95" text-anchor="middle" font-size="14" fill="#64748B">🏠</text>
+  <text x="26" y="135" text-anchor="middle" font-size="14" fill="#64748B">💬</text>
+  <text x="26" y="175" text-anchor="middle" font-size="14" fill="#64748B">📞</text>
+  <text x="26" y="215" text-anchor="middle" font-size="14" fill="#64748B">📢</text>
+  <rect x="6" y="234" width="40" height="40" rx="8" fill="#4B61DC"/>
+  <text x="26" y="259" text-anchor="middle" font-size="14" fill="white">🤖</text>
+  <text x="26" y="305" text-anchor="middle" font-size="14" fill="#64748B">👥</text>
+
+  <!-- SUBMENU PANEL (200px) -->
+  <rect x="52" y="56" width="200" height="774" fill="#F1F5F9"/>
+  <line x1="252" y1="56" x2="252" y2="830" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="68" y="88" font-size="10" letter-spacing="0.08em" font-weight="600" fill="#4B61DC">BOT &amp; AUTOMATION</text>
+  <text x="68" y="120" font-size="12" fill="#272B32">Conversations</text>
+  <text x="68" y="152" font-size="12" fill="#272B32">AI agents</text>
+  <rect x="58" y="164" width="186" height="32" rx="6" fill="#D6DBF7"/>
+  <text x="68" y="184" font-size="12" font-weight="600" fill="#4B61DC">Knowledge Base</text>
+  <text x="68" y="216" font-size="12" fill="#272B32">Custom instruction</text>
+  <text x="68" y="248" font-size="12" fill="#272B32">Settings ↗</text>
+
+  <!-- PAGE HEADER (surface) -->
+  <rect x="252" y="56" width="428" height="80" fill="#F1F5F9"/>
+  <text x="276" y="84" font-size="11" fill="#656F80">Bot &amp; Automation  /  Knowledge Base  /  Bulk URL Fetcher</text>
+  <text x="276" y="114" font-size="20" font-weight="600" fill="#272B32">Bulk URL Fetcher</text>
+
+  <!-- CONTENT AREA — white stage, no inner card -->
+  <rect x="252" y="136" width="428" height="694" fill="white"/>
+
+  <!-- STEPPER (standalone component, full-width inside content padding) -->
+  <rect x="276" y="160" width="380" height="44" rx="6" fill="white" stroke="#DCDFE4" stroke-width="1"/>
+  <circle cx="306" cy="182" r="12" fill="#4B61DC"/>
+  <text x="306" y="187" text-anchor="middle" font-size="10" font-weight="600" fill="white">1</text>
+  <text x="322" y="187" font-size="11" font-weight="600" fill="#4B61DC">Discover URLs</text>
+  <line x1="400" y1="182" x2="438" y2="182" stroke="#DCDFE4" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <circle cx="452" cy="182" r="12" fill="white" stroke="#DCDFE4" stroke-width="1.5"/>
+  <text x="452" y="187" text-anchor="middle" font-size="10" fill="#9AA5B4">2</text>
+  <text x="468" y="187" font-size="11" fill="#9AA5B4">Fetch Pages</text>
+  <line x1="527" y1="182" x2="565" y2="182" stroke="#DCDFE4" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <circle cx="579" cy="182" r="12" fill="white" stroke="#DCDFE4" stroke-width="1.5"/>
+  <text x="579" y="187" text-anchor="middle" font-size="10" fill="#9AA5B4">3</text>
+  <text x="595" y="187" font-size="11" fill="#9AA5B4">Review &amp; Add</text>
+
+  <!-- Step content — flows directly in white content area (no card wrapper) -->
+
+  <!-- Section heading + description -->
+  <text x="276" y="232" font-size="14" font-weight="600" fill="#272B32">Discover URLs</text>
+  <text x="276" y="251" font-size="12" fill="#656F80">Enter a domain to find all crawlable pages</text>
+
+  <!-- Domain input row -->
+  <!-- Input field -->
+  <rect x="276" y="267" width="296" height="38" rx="6" fill="white" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="292" y="291" font-size="12" fill="#9AA5B4">https://help.example.com</text>
+  <!-- "Discover" = OUTLINE button (secondary) — NOT primary -->
+  <rect x="578" y="267" width="78" height="38" rx="6" fill="white" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="617" y="291" text-anchor="middle" font-size="12" fill="#272B32">Discover</text>
+
+  <!-- Found badge (appears after API response) -->
+  <rect x="276" y="321" width="136" height="22" rx="11" fill="#DCFCE7"/>
+  <text x="344" y="336" text-anchor="middle" font-size="11" font-weight="600" fill="#1C8459">✓  Found 47 pages</text>
+
+  <!-- URL list — a bordered scroll container (scroll needs containment; this is structural, not a "card") -->
+  <rect x="276" y="357" width="380" height="286" rx="4" fill="white" stroke="#DCDFE4" stroke-width="1"/>
+
+  <!-- Select All header row (surface bg inside the list) -->
+  <rect x="276" y="357" width="380" height="36" rx="4" fill="#F1F5F9"/>
+  <!-- Indeterminate checkbox -->
+  <rect x="292" y="368" width="14" height="14" rx="3" fill="#4B61DC"/>
+  <line x1="294" y1="375" x2="304" y2="375" stroke="white" stroke-width="2"/>
+  <text x="314" y="379" font-size="12" font-weight="600" fill="#272B32">Select All</text>
+  <text x="644" y="379" text-anchor="end" font-size="11" fill="#4B61DC" font-weight="600">45 of 47 selected</text>
+
+  <!-- Item rows -->
+  <line x1="276" y1="393" x2="656" y2="393" stroke="#DCDFE4" stroke-width="1"/>
+  <rect x="292" y="400" width="14" height="14" rx="3" fill="#4B61DC"/>
+  <polyline points="294,407 297,411 304,403" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="314" y="411" font-size="12" fill="#272B32">Getting Started Guide</text>
+  <text x="528" y="411" font-size="11" fill="#656F80">/getting-started</text>
+
+  <line x1="276" y1="424" x2="656" y2="424" stroke="#DCDFE4" stroke-width="1"/>
+  <rect x="292" y="431" width="14" height="14" rx="3" fill="#4B61DC"/>
+  <polyline points="294,438 297,442 304,434" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="314" y="442" font-size="12" fill="#272B32">FAQ</text>
+  <text x="528" y="442" font-size="11" fill="#656F80">/faq</text>
+
+  <line x1="276" y1="455" x2="656" y2="455" stroke="#DCDFE4" stroke-width="1"/>
+  <rect x="292" y="462" width="14" height="14" rx="3" fill="#4B61DC"/>
+  <polyline points="294,469 297,473 304,465" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="314" y="473" font-size="12" fill="#272B32">Pricing</text>
+  <text x="528" y="473" font-size="11" fill="#656F80">/pricing</text>
+
+  <!-- Unchecked row -->
+  <line x1="276" y1="486" x2="656" y2="486" stroke="#DCDFE4" stroke-width="1"/>
+  <rect x="292" y="493" width="14" height="14" rx="3" fill="white" stroke="#DCDFE4" stroke-width="1.5"/>
+  <text x="314" y="504" font-size="12" fill="#656F80">Terms of Service</text>
+  <text x="528" y="504" font-size="11" fill="#656F80">/tos</text>
+  <rect x="622" y="495" width="34" height="16" rx="8" fill="#FEF9C3"/>
+  <text x="639" y="507" text-anchor="middle" font-size="8" fill="#956400">skipped</text>
+
+  <line x1="276" y1="517" x2="656" y2="517" stroke="#DCDFE4" stroke-width="1"/>
+  <rect x="292" y="524" width="14" height="14" rx="3" fill="#4B61DC"/>
+  <polyline points="294,531 297,535 304,527" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="314" y="535" font-size="12" fill="#272B32">Contact Us</text>
+  <text x="528" y="535" font-size="11" fill="#656F80">/contact</text>
+
+  <line x1="276" y1="548" x2="656" y2="548" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="466" y="574" text-anchor="middle" font-size="11" fill="#9AA5B4">⋯  42 more pages  ⋯</text>
+
+  <!-- Scrollbar -->
+  <rect x="651" y="393" width="4" height="246" rx="2" fill="#F1F5F9"/>
+  <rect x="651" y="423" width="4" height="72" rx="2" fill="#C4C9D4"/>
+
+  <!-- STICKY FOOTER — the single primary CTA lives here -->
+  <rect x="252" y="762" width="428" height="68" fill="white"/>
+  <line x1="252" y1="762" x2="680" y2="762" stroke="#DCDFE4" stroke-width="1"/>
+  <!-- Cancel as text link (low emphasis) -->
+  <text x="276" y="802" font-size="12" fill="#4B61DC">Cancel</text>
+  <!-- ONLY primary button on this page -->
+  <rect x="508" y="779" width="148" height="36" rx="6" fill="#4B61DC"/>
+  <text x="582" y="802" text-anchor="middle" font-size="12" font-weight="600" fill="white">▶  Fetch 45 Pages</text>
+
+  <!-- Annotations -->
+  <rect x="276" y="659" width="380" height="92" rx="6" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1"/>
+  <text x="288" y="677" font-size="10" font-weight="600" fill="#956400">Notes:</text>
+  <text x="288" y="694" font-size="10" fill="#956400">①  "Fetch Pages" disabled when 0 URLs selected; Cancel = text link (not a button)</text>
+  <text x="288" y="710" font-size="10" fill="#956400">②  "Discover" = outline secondary; only 1 primary on screen (footer CTA)</text>
+  <text x="288" y="726" font-size="10" fill="#956400">③  URL list = bordered scroll container (structural containment, not a page card)</text>
+  <text x="288" y="742" font-size="10" fill="#956400">④  Discovery loading: skeleton rows in list; error banner replaces found badge</text>
+
+</svg>
+
+
+<h2>Screen 2 — Step 2: Batch Fetch Progress</h2>
+<svg class="frame" width="680" height="680" viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif">
+
+  <!-- TOP BAR -->
+  <rect width="680" height="56" fill="white"/>
+  <line x1="0" y1="56" x2="680" y2="56" stroke="#DCDFE4" stroke-width="1"/>
+  <rect x="16" y="14" width="116" height="28" rx="4" fill="#EEF2FF"/>
+  <text x="74" y="33" text-anchor="middle" font-size="12" font-weight="600" fill="#4B61DC">mekari qontak</text>
+  <circle cx="662" cy="30" r="14" fill="#D6DBF7"/>
+  <text x="662" y="35" text-anchor="middle" font-size="10" font-weight="600" fill="#4B61DC">RC</text>
+
+  <!-- ICON SIDEBAR -->
+  <rect x="0" y="56" width="52" height="624" fill="#1E293B"/>
+  <line x1="52" y1="56" x2="52" y2="680" stroke="#334155" stroke-width="1"/>
+  <text x="26" y="95" text-anchor="middle" font-size="14" fill="#64748B">🏠</text>
+  <text x="26" y="135" text-anchor="middle" font-size="14" fill="#64748B">💬</text>
+  <rect x="6" y="194" width="40" height="40" rx="8" fill="#4B61DC"/>
+  <text x="26" y="219" text-anchor="middle" font-size="14" fill="white">🤖</text>
+
+  <!-- SUBMENU PANEL -->
+  <rect x="52" y="56" width="200" height="624" fill="#F1F5F9"/>
+  <line x1="252" y1="56" x2="252" y2="680" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="68" y="88" font-size="10" letter-spacing="0.08em" font-weight="600" fill="#4B61DC">BOT &amp; AUTOMATION</text>
+  <text x="68" y="120" font-size="12" fill="#272B32">Conversations</text>
+  <text x="68" y="152" font-size="12" fill="#272B32">AI agents</text>
+  <rect x="58" y="164" width="186" height="32" rx="6" fill="#D6DBF7"/>
+  <text x="68" y="184" font-size="12" font-weight="600" fill="#4B61DC">Knowledge Base</text>
+  <text x="68" y="216" font-size="12" fill="#272B32">Custom instruction</text>
+
+  <!-- PAGE HEADER -->
+  <rect x="252" y="56" width="428" height="80" fill="#F1F5F9"/>
+  <text x="276" y="84" font-size="11" fill="#656F80">Bot &amp; Automation  /  Knowledge Base  /  Bulk URL Fetcher</text>
+  <text x="276" y="114" font-size="20" font-weight="600" fill="#272B32">Bulk URL Fetcher</text>
+
+  <!-- CONTENT AREA — white, no card -->
+  <rect x="252" y="136" width="428" height="544" fill="white"/>
+
+  <!-- STEPPER -->
+  <rect x="276" y="160" width="380" height="44" rx="6" fill="white" stroke="#DCDFE4" stroke-width="1"/>
+  <circle cx="306" cy="182" r="12" fill="#1C8459"/>
+  <polyline points="300,182 304,187 313,177" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="322" y="187" font-size="11" fill="#1C8459">Discover URLs</text>
+  <line x1="393" y1="182" x2="435" y2="182" stroke="#1C8459" stroke-width="1.5"/>
+  <circle cx="449" cy="182" r="12" fill="#4B61DC"/>
+  <text x="449" y="187" text-anchor="middle" font-size="10" font-weight="600" fill="white">2</text>
+  <text x="465" y="187" font-size="11" font-weight="600" fill="#4B61DC">Fetch Pages</text>
+  <line x1="528" y1="182" x2="566" y2="182" stroke="#DCDFE4" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <circle cx="580" cy="182" r="12" fill="white" stroke="#DCDFE4" stroke-width="1.5"/>
+  <text x="580" y="187" text-anchor="middle" font-size="10" fill="#9AA5B4">3</text>
+  <text x="596" y="187" font-size="11" fill="#9AA5B4">Review &amp; Add</text>
+
+  <!-- Step 2 content — directly in white area -->
+  <text x="276" y="232" font-size="15" font-weight="600" fill="#272B32">⚡  Fetching pages...</text>
+
+  <!-- Progress bar -->
+  <rect x="276" y="248" width="380" height="10" rx="5" fill="#F1F5F9"/>
+  <rect x="276" y="248" width="228" height="10" rx="5" fill="#4B61DC"/>
+  <text x="656" y="258" text-anchor="end" font-size="12" font-weight="600" fill="#4B61DC">60%</text>
+
+  <!-- Batch meta -->
+  <text x="276" y="282" font-size="12" fill="#272B32">Batch <tspan font-weight="600">6</tspan> of 9</text>
+  <text x="360" y="282" font-size="12" fill="#9AA5B4">·</text>
+  <text x="372" y="282" font-size="12" fill="#272B32"><tspan font-weight="600">27</tspan> / 45 pages fetched</text>
+
+  <!-- Warning -->
+  <rect x="276" y="296" width="178" height="22" rx="4" fill="#FFF3CD"/>
+  <text x="365" y="311" text-anchor="middle" font-size="11" fill="#956400">⚠  2 pages failed  (retrying)</text>
+
+  <!-- Currently fetching section — no card, just a divider + overline label -->
+  <line x1="276" y1="334" x2="656" y2="334" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="276" y="352" font-size="10" letter-spacing="0.08em" font-weight="600" fill="#9AA5B4">CURRENTLY FETCHING — BATCH 6 / 9</text>
+
+  <!-- URL rows — just list, no card container -->
+  <text x="276" y="378" font-size="13" fill="#1C8459">✓</text>
+  <text x="295" y="378" font-size="12" fill="#272B32">/getting-started</text>
+
+  <text x="276" y="400" font-size="13" fill="#1C8459">✓</text>
+  <text x="295" y="400" font-size="12" fill="#272B32">/faq</text>
+
+  <circle cx="284" cy="419" r="6" fill="none" stroke="#4B61DC" stroke-width="2" stroke-dasharray="12 6"/>
+  <text x="295" y="424" font-size="12" fill="#4B61DC">/pricing</text>
+  <text x="440" y="424" font-size="11" fill="#9AA5B4">fetching...</text>
+
+  <circle cx="284" cy="441" r="6" fill="none" stroke="#4B61DC" stroke-width="2" stroke-dasharray="12 6"/>
+  <text x="295" y="446" font-size="12" fill="#4B61DC">/contact</text>
+  <text x="440" y="446" font-size="11" fill="#9AA5B4">fetching...</text>
+
+  <circle cx="284" cy="463" r="6" fill="none" stroke="#4B61DC" stroke-width="2" stroke-dasharray="12 6"/>
+  <text x="295" y="468" font-size="12" fill="#4B61DC">/about-us</text>
+  <text x="440" y="468" font-size="11" fill="#9AA5B4">queued</text>
+
+  <text x="276" y="494" font-size="11" fill="#9AA5B4">5 pages per batch · continues automatically</text>
+
+  <!-- No primary CTA on this screen — only a danger outline "Stop" -->
+  <!-- Stop is low-emphasis danger (outline, not filled) -->
+  <line x1="252" y1="616" x2="680" y2="616" stroke="#DCDFE4" stroke-width="1"/>
+  <rect x="252" y="616" width="428" height="64" fill="white"/>
+  <rect x="530" y="630" width="90" height="34" rx="6" fill="white" stroke="#C33E35" stroke-width="1"/>
+  <text x="575" y="652" text-anchor="middle" font-size="11" fill="#C33E35">■  Stop</text>
+  <text x="276" y="652" font-size="11" fill="#9AA5B4">This screen has no primary CTA — progress auto-advances to Step 3.</text>
+
+  <!-- Annotations -->
+  <rect x="276" y="512" width="380" height="58" rx="6" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1"/>
+  <text x="288" y="530" font-size="10" font-weight="600" fill="#956400">Notes:</text>
+  <text x="288" y="547" font-size="10" fill="#956400">①  Poll /fetch-progress every 1s; auto-advance to Step 3 when complete + toast</text>
+  <text x="288" y="563" font-size="10" fill="#956400">②  "Stop" = danger outline only (no primary); triggers confirmation modal</text>
+
+</svg>
+
+
+<h2>Screen 3 — Step 3: Review &amp; Add to KB  (confirmation modal open)</h2>
+<svg class="frame" width="680" height="900" viewBox="0 0 680 900" xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif">
+
+  <!-- TOP BAR -->
+  <rect width="680" height="56" fill="white"/>
+  <line x1="0" y1="56" x2="680" y2="56" stroke="#DCDFE4" stroke-width="1"/>
+  <rect x="16" y="14" width="116" height="28" rx="4" fill="#EEF2FF"/>
+  <text x="74" y="33" text-anchor="middle" font-size="12" font-weight="600" fill="#4B61DC">mekari qontak</text>
+  <circle cx="662" cy="30" r="14" fill="#D6DBF7"/>
+  <text x="662" y="35" text-anchor="middle" font-size="10" font-weight="600" fill="#4B61DC">RC</text>
+
+  <!-- ICON SIDEBAR -->
+  <rect x="0" y="56" width="52" height="844" fill="#1E293B"/>
+  <line x1="52" y1="56" x2="52" y2="900" stroke="#334155" stroke-width="1"/>
+  <text x="26" y="95" text-anchor="middle" font-size="14" fill="#64748B">🏠</text>
+  <text x="26" y="135" text-anchor="middle" font-size="14" fill="#64748B">💬</text>
+  <rect x="6" y="194" width="40" height="40" rx="8" fill="#4B61DC"/>
+  <text x="26" y="219" text-anchor="middle" font-size="14" fill="white">🤖</text>
+  <text x="26" y="265" text-anchor="middle" font-size="14" fill="#64748B">👥</text>
+
+  <!-- SUBMENU PANEL -->
+  <rect x="52" y="56" width="200" height="844" fill="#F1F5F9"/>
+  <line x1="252" y1="56" x2="252" y2="900" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="68" y="88" font-size="10" letter-spacing="0.08em" font-weight="600" fill="#4B61DC">BOT &amp; AUTOMATION</text>
+  <text x="68" y="120" font-size="12" fill="#272B32">Conversations</text>
+  <text x="68" y="152" font-size="12" fill="#272B32">AI agents</text>
+  <rect x="58" y="164" width="186" height="32" rx="6" fill="#D6DBF7"/>
+  <text x="68" y="184" font-size="12" font-weight="600" fill="#4B61DC">Knowledge Base</text>
+  <text x="68" y="216" font-size="12" fill="#272B32">Custom instruction</text>
+
+  <!-- PAGE HEADER -->
+  <rect x="252" y="56" width="428" height="80" fill="#F1F5F9"/>
+  <text x="276" y="84" font-size="11" fill="#656F80">Bot &amp; Automation  /  Knowledge Base  /  Bulk URL Fetcher</text>
+  <text x="276" y="114" font-size="20" font-weight="600" fill="#272B32">Bulk URL Fetcher</text>
+
+  <!-- CONTENT AREA — white, no card wrapper -->
+  <rect x="252" y="136" width="428" height="764" fill="white"/>
+
+  <!-- STEPPER -->
+  <rect x="276" y="160" width="380" height="44" rx="6" fill="white" stroke="#DCDFE4" stroke-width="1"/>
+  <circle cx="306" cy="182" r="12" fill="#1C8459"/>
+  <polyline points="300,182 304,187 313,177" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="322" y="187" font-size="11" fill="#1C8459">Discover URLs</text>
+  <line x1="393" y1="182" x2="435" y2="182" stroke="#1C8459" stroke-width="1.5"/>
+  <circle cx="449" cy="182" r="12" fill="#1C8459"/>
+  <polyline points="443,182 447,187 456,177" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="465" y="187" font-size="11" fill="#1C8459">Fetch Pages</text>
+  <line x1="528" y1="182" x2="566" y2="182" stroke="#1C8459" stroke-width="1.5"/>
+  <circle cx="580" cy="182" r="12" fill="#4B61DC"/>
+  <text x="580" y="187" text-anchor="middle" font-size="10" font-weight="600" fill="white">3</text>
+  <text x="596" y="187" font-size="11" font-weight="600" fill="#4B61DC">Review &amp; Add</text>
+
+  <!-- Step 3 content — directly in white, no card -->
+
+  <!-- Section header + meta -->
+  <text x="276" y="232" font-size="14" font-weight="600" fill="#272B32">Review Results</text>
+  <rect x="402" y="218" width="60" height="20" rx="10" fill="#EEF2FF"/>
+  <text x="432" y="232" text-anchor="middle" font-size="10" font-weight="600" fill="#4B61DC">43 pages</text>
+  <text x="276" y="252" font-size="11" fill="#656F80">43 success  ·  2 failed  ·  help.example.com</text>
+
+  <!-- Filter toolbar row -->
+  <rect x="276" y="264" width="380" height="32" rx="4" fill="#F1F5F9"/>
+  <rect x="284" y="271" width="92" height="18" rx="3" fill="white" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="330" y="284" text-anchor="middle" font-size="10" fill="#272B32">All (45) ▾</text>
+  <rect x="382" y="271" width="106" height="18" rx="3" fill="white" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="435" y="284" text-anchor="middle" font-size="10" fill="#272B32">Success (43) ▾</text>
+  <rect x="494" y="271" width="96" height="18" rx="3" fill="white" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="542" y="284" text-anchor="middle" font-size="10" fill="#272B32">Failed (2) ▾</text>
+
+  <!-- Review items — list with dividers, no card wrapper -->
+  <!-- Item 1: Success -->
+  <line x1="276" y1="306" x2="656" y2="306" stroke="#DCDFE4" stroke-width="1"/>
+  <!-- Left accent (4px status bar, not a card) -->
+  <rect x="276" y="306" width="3" height="96" fill="#1C8459"/>
+  <text x="290" y="328" font-size="12" font-weight="600" fill="#272B32">Getting Started Guide</text>
+  <rect x="460" y="317" width="56" height="17" rx="9" fill="#DCFCE7"/>
+  <text x="488" y="329" text-anchor="middle" font-size="9" fill="#1C8459">✓ success</text>
+  <text x="652" y="328" text-anchor="end" font-size="15" fill="#9AA5B4">×</text>
+  <text x="290" y="350" font-size="11" fill="#656F80">/getting-started  ·  2,450 chars</text>
+  <text x="290" y="370" font-size="11" fill="#9AA5B4">Welcome to our platform. This guide will help you get started...</text>
+  <text x="290" y="390" font-size="11" fill="#4B61DC">Show more ↓</text>
+
+  <!-- Item 2: Success -->
+  <line x1="276" y1="402" x2="656" y2="402" stroke="#DCDFE4" stroke-width="1"/>
+  <rect x="276" y="402" width="3" height="76" fill="#1C8459"/>
+  <text x="290" y="424" font-size="12" font-weight="600" fill="#272B32">FAQ</text>
+  <rect x="444" y="413" width="56" height="17" rx="9" fill="#DCFCE7"/>
+  <text x="472" y="425" text-anchor="middle" font-size="9" fill="#1C8459">✓ success</text>
+  <text x="652" y="424" text-anchor="end" font-size="15" fill="#9AA5B4">×</text>
+  <text x="290" y="444" font-size="11" fill="#656F80">/faq  ·  3,120 chars</text>
+  <text x="290" y="464" font-size="11" fill="#9AA5B4">Find answers to the most common questions...</text>
+
+  <!-- Item 3: Failed -->
+  <line x1="276" y1="478" x2="656" y2="478" stroke="#DCDFE4" stroke-width="1"/>
+  <rect x="276" y="478" width="3" height="70" fill="#C33E35"/>
+  <text x="290" y="500" font-size="12" font-weight="600" fill="#272B32">Pricing Page</text>
+  <rect x="432" y="489" width="52" height="17" rx="9" fill="#FEE2E2"/>
+  <text x="458" y="501" text-anchor="middle" font-size="9" fill="#C33E35">✗ failed</text>
+  <text x="290" y="520" font-size="11" fill="#656F80">/pricing  ·  Connection timeout (30s)</text>
+  <!-- Retry as outline, not primary -->
+  <rect x="558" y="528" width="52" height="22" rx="4" fill="white" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="584" y="543" text-anchor="middle" font-size="10" fill="#272B32">↺ Retry</text>
+
+  <line x1="276" y1="548" x2="656" y2="548" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="466" y="580" text-anchor="middle" font-size="11" fill="#9AA5B4">⋯  40 more pages  ⋯</text>
+
+  <!-- STICKY FOOTER — only 1 primary on this screen -->
+  <rect x="252" y="830" width="428" height="70" fill="white"/>
+  <line x1="252" y1="830" x2="680" y2="830" stroke="#DCDFE4" stroke-width="1"/>
+  <!-- "Retry All Failed" = outline -->
+  <rect x="276" y="845" width="142" height="34" rx="6" fill="white" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="347" y="867" text-anchor="middle" font-size="10" fill="#272B32">↺ Retry All Failed (2)</text>
+  <!-- "Clear All" = text link -->
+  <text x="430" y="867" font-size="11" fill="#4B61DC">Clear All</text>
+  <!-- PRIMARY — only one -->
+  <rect x="480" y="845" width="156" height="34" rx="6" fill="#4B61DC"/>
+  <text x="558" y="867" text-anchor="middle" font-size="11" font-weight="600" fill="white">💾 Add 43 Pages to KB</text>
+
+  <!-- MODAL OVERLAY -->
+  <rect x="252" y="136" width="428" height="764" fill="black" opacity="0.35"/>
+
+  <!-- CONFIRMATION MODAL (floating layer — this IS a card with elevation) -->
+  <rect x="296" y="330" width="340" height="238" rx="8" fill="white"/>
+  <!-- Drop shadow hint (SVG approximation) -->
+  <text x="318" y="364" font-size="14" font-weight="600" fill="#272B32">Add to Knowledge Base?</text>
+  <text x="612" y="364" text-anchor="end" font-size="16" fill="#9AA5B4">×</text>
+  <line x1="318" y1="376" x2="612" y2="376" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="318" y="400" font-size="12" fill="#272B32">You are about to add:</text>
+  <text x="330" y="422" font-size="12" fill="#272B32">•  43 pages</text>
+  <text x="330" y="442" font-size="12" fill="#272B32">•  125,000 characters</text>
+  <text x="330" y="462" font-size="12" fill="#272B32">•  Source: help.example.com</text>
+  <text x="318" y="484" font-size="11" fill="#656F80">This content will train your chatbot responses.</text>
+  <line x1="318" y1="498" x2="612" y2="498" stroke="#DCDFE4" stroke-width="1"/>
+  <!-- Cancel = outline; primary = brand blue -->
+  <rect x="424" y="508" width="72" height="30" rx="6" fill="white" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="460" y="527" text-anchor="middle" font-size="11" fill="#272B32">Cancel</text>
+  <rect x="502" y="508" width="108" height="30" rx="6" fill="#4B61DC"/>
+  <text x="556" y="527" text-anchor="middle" font-size="11" font-weight="600" fill="white">Add to KB</text>
+
+  <!-- Annotations -->
+  <rect x="276" y="602" width="380" height="72" rx="6" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1"/>
+  <text x="288" y="620" font-size="10" font-weight="600" fill="#956400">Notes:</text>
+  <text x="288" y="637" font-size="10" fill="#956400">①  List items use left accent bars (3px status strip) — not card borders</text>
+  <text x="288" y="653" font-size="10" fill="#956400">②  Modal IS a floating card (elevation token) — that's valid; page content is not</text>
+  <text x="288" y="669" font-size="10" fill="#956400">③  After add success: banner inline replaces list, shows "View KB" + "Fetch More"</text>
+
+</svg>
+
+
+<h2>Screen 4 — Success State</h2>
+<svg class="frame" width="680" height="380" viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif">
+
+  <!-- TOP BAR -->
+  <rect width="680" height="56" fill="white"/>
+  <line x1="0" y1="56" x2="680" y2="56" stroke="#DCDFE4" stroke-width="1"/>
+  <rect x="16" y="14" width="116" height="28" rx="4" fill="#EEF2FF"/>
+  <text x="74" y="33" text-anchor="middle" font-size="12" font-weight="600" fill="#4B61DC">mekari qontak</text>
+  <circle cx="662" cy="30" r="14" fill="#D6DBF7"/>
+  <text x="662" y="35" text-anchor="middle" font-size="10" font-weight="600" fill="#4B61DC">RC</text>
+
+  <!-- ICON SIDEBAR -->
+  <rect x="0" y="56" width="52" height="324" fill="#1E293B"/>
+  <line x1="52" y1="56" x2="52" y2="380" stroke="#334155" stroke-width="1"/>
+  <rect x="6" y="194" width="40" height="40" rx="8" fill="#4B61DC"/>
+  <text x="26" y="219" text-anchor="middle" font-size="14" fill="white">🤖</text>
+
+  <!-- SUBMENU PANEL -->
+  <rect x="52" y="56" width="200" height="324" fill="#F1F5F9"/>
+  <line x1="252" y1="56" x2="252" y2="380" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="68" y="88" font-size="10" letter-spacing="0.08em" font-weight="600" fill="#4B61DC">BOT &amp; AUTOMATION</text>
+  <rect x="58" y="164" width="186" height="32" rx="6" fill="#D6DBF7"/>
+  <text x="68" y="184" font-size="12" font-weight="600" fill="#4B61DC">Knowledge Base</text>
+
+  <!-- PAGE HEADER -->
+  <rect x="252" y="56" width="428" height="80" fill="#F1F5F9"/>
+  <text x="276" y="84" font-size="11" fill="#656F80">Bot &amp; Automation  /  Knowledge Base  /  Bulk URL Fetcher</text>
+  <text x="276" y="114" font-size="20" font-weight="600" fill="#272B32">Bulk URL Fetcher</text>
+
+  <!-- CONTENT AREA -->
+  <rect x="252" y="136" width="428" height="244" fill="white"/>
+
+  <!-- Success banner — inline in white content area, not a card -->
+  <rect x="276" y="158" width="380" height="4" rx="2" fill="#1C8459"/>
+  <circle cx="466" cy="206" r="26" fill="#DCFCE7"/>
+  <polyline points="454,206 462,215 479,197" fill="none" stroke="#1C8459" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="466" y="252" text-anchor="middle" font-size="14" font-weight="600" fill="#272B32">43 pages added to Knowledge Base</text>
+  <text x="466" y="272" text-anchor="middle" font-size="11" fill="#656F80">125,000 characters  ·  help.example.com</text>
+
+  <!-- CTAs: outline secondary + primary -->
+  <rect x="298" y="290" width="152" height="34" rx="6" fill="white" stroke="#DCDFE4" stroke-width="1"/>
+  <text x="374" y="312" text-anchor="middle" font-size="11" fill="#272B32">View Knowledge Base</text>
+  <rect x="460" y="290" width="136" height="34" rx="6" fill="#4B61DC"/>
+  <text x="528" y="312" text-anchor="middle" font-size="11" font-weight="600" fill="white">+ Fetch More URLs</text>
+
+</svg>
+
+<p class="note">
+  Fixes vs previous: ①&nbsp;No white-on-white card wrappers — step content sits directly in the stage (white content area).
+  ②&nbsp;Only 1 primary button per screen (sticky footer). "Discover" = outline secondary.
+  The scrollable URL list uses a structural border for containment, not decoration.
+</p>
+
+</body>
+</html>

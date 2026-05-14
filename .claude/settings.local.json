@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git clone *)",
+      "Bash(rsync -av --exclude='.git' /tmp/qontak-design-clone/ /Users/fajar/Documents/mekari-design/qontak-prototype/)",
+      "Bash(cp -r /tmp/qontak-design-clone/.git /Users/fajar/Documents/mekari-design/qontak-prototype/.git)",
+      "Bash(rm -rf /tmp/qontak-design-clone)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "mcp__aa97174e-cf92-4da5-80e8-60c0c80d191c__get_design_context",
+      "mcp__aa97174e-cf92-4da5-80e8-60c0c80d191c__get_screenshot",
+      "Bash(curl -s -o /tmp/subscription_design.png \"https://www.figma.com/api/mcp/asset/2357b82d-dede-4437-80e9-c94bcc1ff428\")",
+      "Bash(node -e \"const r = require\\('@mekari/pixel3-styled-system/recipes'\\); const t = r.tabListSlotRecipe\\(\\); console.log\\(JSON.stringify\\(t, null, 2\\)\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(curl -s -o /tmp/figma_latest.png \"https://www.figma.com/api/mcp/asset/274edceb-27f2-487a-900f-05b0b2ffa161\")",
+      "Bash(curl -s -o /tmp/figma_check.png \"https://www.figma.com/api/mcp/asset/50577165-a5c8-49d7-bd4f-b11a5db5ef53\")",
+      "mcp__34358bdd-d5c4-47af-9e42-76849606bdbb__get-component",
+      "Bash(npx skills *)",
+      "Bash(curl -s -o /tmp/figma_screenshot.png \"https://www.figma.com/api/mcp/asset/c6374f59-a028-452f-b5ea-29397aa25c8c\")",
+      "mcp__34358bdd-d5c4-47af-9e42-76849606bdbb__get-pattern",
+      "mcp__34358bdd-d5c4-47af-9e42-76849606bdbb__get-icon-name"
+    ]
+  }
+}

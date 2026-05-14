@@ -109,7 +109,7 @@
         }"
         :class="navItemHoverClass"
       >
-        <MpIcon :name="isSubmenuOpen ? 'arrow-expand' : 'arrow-collapse'" size="sm" color="text.secondary" />
+        <MpIcon name="arrow-collapse" size="sm" color="text.secondary" />
         <MpText v-if="!isSubmenuOpen" size="body-small" color="text.secondary">Company ID: 102938</MpText>
       </MpFlex>
     </MpFlex>
